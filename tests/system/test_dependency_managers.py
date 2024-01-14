@@ -76,7 +76,7 @@ def test_pipenv_works_with_snek(tmpfolder, monkeypatch, venv):
         # and run things from inside pipenv's venv
         pipenv_path = venv.run("pipenv --venv")
         assert pipenv_path in venv.run("pipenv run which flake8")
-        venv.run("pipenv --bare run flake8 src/myproj/skeleton.py")
+        venv.run("pipenv --bare run flake8 src/myproj/cli.py")
 
 
 @pytest.mark.xfail(
@@ -112,7 +112,7 @@ def test_piptools_works_with_snek(tmpfolder, monkeypatch):
         try:
             # pip-tools have problems on windows inside a test env with relative paths
             run(pip_sync)
-            run(f"{find('flake8')} src/myproj/skeleton.py")
+            run(f"{find('flake8')} src/myproj/cli.py")
         except CalledProcessError as ex:
             if "assert" in ex.output:
                 pytest.skip(

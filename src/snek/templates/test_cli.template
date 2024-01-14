@@ -1,6 +1,6 @@
 import pytest
 
-from ${qual_pkg}.skeleton import fib, main
+from ${qual_pkg}.cli import fib, main
 
 __author__ = "${author}"
 __copyright__ = "${author}"

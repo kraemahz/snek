@@ -28,7 +28,7 @@ Assume the name of our project is ``old_project`` with a package called
 ``old_package`` and no namespaces then just:
 
 1) make sure your worktree is not dirty, i.e. commit all your changes,
-2) run ``putup old_project --force --no-skeleton -p old_package`` to generate
+2) run ``putup old_project --force --no-cli -p old_package`` to generate
    the new structure inplace and ``cd`` into your project,
 3) move with ``git mv old_package/* src/old_package/ --force`` your old package
    over to the new ``src`` directory,

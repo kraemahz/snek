@@ -234,7 +234,7 @@ extension which defines the ``define_awesome_files`` action:
                 )
 
             # The `reject` can be used to avoid default files being generated.
-            struct = structure.reject(struct, Path("src", opts["package"], "skeleton.py"))
+            struct = structure.reject(struct, Path("src", opts["package"], "cli.py"))
 
             # `modify` can be used to change contents in an existing file
             # and/or change the assigned file operation
@@ -385,7 +385,7 @@ Examples
 Some options for the ``putup`` command are already implemented as extensions
 and can be used as reference implementation, such as:
 
-* :doc:`no-skeleton </examples/no-skeleton-extension>`
+* :doc:`no-cli </examples/no-cli-extension>`
 * :doc:`no-tox </examples/no-tox-extension>`
 * :doc:`cirrus </examples/cirrus-extension>`
 * :doc:`gitlab </examples/gitlab-ci-extension>`
@@ -445,7 +445,7 @@ Similarly to ``sphinxcontrib-*`` packages, names registered in PyPI should
 contain a dash ``-``, instead of a dot ``.``. This way, third-party extension
 development can be easily bootstrapped with the command::
 
-    putup snekext-${EXT_NAME} -p ${EXT_NAME} --namespace snekext --no-skeleton
+    putup snekext-${EXT_NAME} -p ${EXT_NAME} --namespace snekext --no-cli
 
 If you put your extension code in the module ``extension.py`` then the
 ``options.entry_points`` section in ``setup.cfg`` looks like:

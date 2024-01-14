@@ -17,7 +17,7 @@ Let's start:
 
 #. Change into the parent folder of ``my_project`` and type::
 
-     putup my_project --force --no-skeleton -p my_package
+     putup my_project --force --no-cli -p my_package
 
    in order to deploy the new project structure in your repository.
 

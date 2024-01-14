@@ -38,7 +38,7 @@ and performing the usual editable_ install::
 
 .. code-block:: pycon
 
-   >>> from my_project.skeleton import fib
+   >>> from my_project.cli import fib
    >>> fib(10)
    55
 

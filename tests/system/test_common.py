@@ -196,14 +196,14 @@ def test_extensions(cwd, putup, extension, kwargs, filename):
         run_common_tasks(**kwargs)
 
 
-def test_no_skeleton(cwd, putup):
+def test_no_cli(cwd, putup):
     # Given snek is installed,
-    # when we call putup with --no-skeleton
-    run(f"{putup} myproj --no-skeleton")
+    # when we call putup with --no-cli
+    run(f"{putup} myproj --no-cli")
     with cwd.join("myproj").as_cwd():
-        # then no skeleton file should be created
-        assert not Path("src/myproj/skeleton.py").exists()
-        assert not Path("tests/test_skeleton.py").exists()
+        # then no cli file should be created
+        assert not Path("src/myproj/cli.py").exists()
+        assert not Path("tests/test_cli.py").exists()
         # and all the common tasks should run properly
         run_common_tasks(tests=False)
 
@@ -213,7 +213,7 @@ def test_namespace(cwd, putup):
     # when we call putup with --namespace
     run(f"{putup} nested_project -p my_package --namespace com.blue_yonder")
     # then a very complicated module hierarchy should exist
-    path = "nested_project/src/com/blue_yonder/my_package/skeleton.py"
+    path = "nested_project/src/com/blue_yonder/my_package/cli.py"
     assert Path(path).exists()
     assert not Path("nested_project/src/my_package").exists()
     with cwd.join("nested_project").as_cwd():
@@ -227,18 +227,18 @@ def test_namespace(cwd, putup):
     assert not Path("nested_project/src/my_package").exists()
 
 
-def test_namespace_no_skeleton(cwd, putup):
+def test_namespace_no_cli(cwd, putup):
     # Given snek is installed,
-    # when we call putup with --namespace and --no-skeleton
+    # when we call putup with --namespace and --no-cli
     run(
-        f"{putup} nested_project --no-skeleton "
+        f"{putup} nested_project --no-cli "
         "-p my_package --namespace com.blue_yonder"
     )
     # then a very complicated module hierarchy should exist
     path = Path("nested_project/src/com/blue_yonder/my_package")
     assert path.is_dir()
-    # but no skeleton.py
-    assert not (path / "skeleton.py").exists()
+    # but no cli.py
+    assert not (path / "cli.py").exists()
 
 
 @pytest.mark.skipif(sys.version_info < (3, 7), reason="pre-commit requires Python 3.7+")

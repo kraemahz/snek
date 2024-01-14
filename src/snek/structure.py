@@ -142,13 +142,13 @@ def define_structure(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
         "src": {
             opts["package"]: {
                 "__init__.py": templates.init,
-                "skeleton.py": (get_template("skeleton"), SKIP_ON_UPDATE),
+                "cli.py": (get_template("cli"), SKIP_ON_UPDATE),
             }
         },
         # Tests
         "tests": {
             "conftest.py": (get_template("conftest_py"), NO_OVERWRITE),
-            "test_skeleton.py": (get_template("test_skeleton"), SKIP_ON_UPDATE),
+            "test_cli.py": (get_template("test_cli"), SKIP_ON_UPDATE),
         },
         # Remaining of the Documentation
         "docs": {
