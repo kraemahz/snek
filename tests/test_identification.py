@@ -2,8 +2,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from pyscaffold.exceptions import InvalidIdentifier
-from pyscaffold.identification import (
+from snek.exceptions import InvalidIdentifier
+from snek.identification import (
     dasherize,
     deterministic_name,
     deterministic_sort,
@@ -69,9 +69,9 @@ def test_underscore():
 @pytest.mark.parametrize(
     "obj, name",
     [
-        (underscore, "pyscaffold.identification.underscore"),
+        (underscore, "snek.identification.underscore"),
         (None, "...NoneType"),
-        (InvalidIdentifier(), "pyscaffold.exceptions.InvalidIdentifier"),
+        (InvalidIdentifier(), "snek.exceptions.InvalidIdentifier"),
     ],
 )
 def test_deterministic_name(obj, name):
@@ -80,8 +80,8 @@ def test_deterministic_name(obj, name):
 
 def test_deterministic_sort():
     ex = InvalidIdentifier()
-    ext1 = Mock(__module__="pyscaffold.extension", __qualname__="Extension")
-    ext2 = Mock(__module__="pyscaffoldext", __qualname__="Extension")
+    ext1 = Mock(__module__="snek.extension", __qualname__="Extension")
+    ext2 = Mock(__module__="snekext", __qualname__="Extension")
     assert deterministic_sort([underscore, None, ext2, ext1, ex]) == [
         None,
         ex,

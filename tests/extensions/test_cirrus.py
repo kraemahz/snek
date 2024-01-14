@@ -2,9 +2,9 @@
 import sys
 from os.path import exists as path_exists
 
-from pyscaffold.api import create_project
-from pyscaffold.cli import run
-from pyscaffold.extensions.cirrus import Cirrus
+from snek.api import create_project
+from snek.cli import run
+from snek.extensions.cirrus import Cirrus
 
 
 def test_create_project_with_cirrus(tmpfolder):
@@ -31,9 +31,9 @@ def test_create_project_without_cirrus(tmpfolder):
 
 def test_cli_with_cirrus(tmpfolder):
     # Given the command line with the cirrus option,
-    sys.argv = ["pyscaffold", "--cirrus", "proj"]
+    sys.argv = ["snek", "--cirrus", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then files from cirrus and other extensions automatically added should
@@ -45,9 +45,9 @@ def test_cli_with_cirrus(tmpfolder):
 
 def test_cli_with_cirrus_and_pretend(tmpfolder):
     # Given the command line with the cirrus and pretend options
-    sys.argv = ["pyscaffold", "--pretend", "--cirrus", "proj"]
+    sys.argv = ["snek", "--pretend", "--cirrus", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then cirrus files should not exist
@@ -58,9 +58,9 @@ def test_cli_with_cirrus_and_pretend(tmpfolder):
 
 def test_cli_without_cirrus(tmpfolder):
     # Given the command line without the cirrus option,
-    sys.argv = ["pyscaffold", "proj"]
+    sys.argv = ["snek", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then cirrus files should not exist

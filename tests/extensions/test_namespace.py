@@ -4,18 +4,18 @@ from pathlib import Path
 
 import pytest
 
-from pyscaffold.actions import get_default_options
-from pyscaffold.api import create_project
-from pyscaffold.cli import parse_args, run
-from pyscaffold.exceptions import InvalidIdentifier
-from pyscaffold.extensions.namespace import (
+from snek.actions import get_default_options
+from snek.api import create_project
+from snek.cli import parse_args, run
+from snek.exceptions import InvalidIdentifier
+from snek.extensions.namespace import (
     Namespace,
     add_namespace,
     enforce_namespace_options,
     move_old_package,
     prepare_namespace,
 )
-from pyscaffold.log import logger
+from snek.log import logger
 
 
 def test_prepare_namespace():
@@ -108,9 +108,9 @@ def test_create_project_without_namespace(tmpfolder):
 
 def test_cli_with_namespace(tmpfolder):
     # Given the command line with the namespace option,
-    sys.argv = ["pyscaffold", "proj", "--namespace", "ns"]
+    sys.argv = ["snek", "proj", "--namespace", "ns"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then namespace __init__ package should not exist
@@ -121,9 +121,9 @@ def test_cli_with_namespace(tmpfolder):
 
 def test_cli_with_namespace_and_pretend(tmpfolder):
     # Given the command line with the namespace and pretend options
-    sys.argv = ["pyscaffold", "proj", "--namespace", "ns", "--pretend"]
+    sys.argv = ["snek", "proj", "--namespace", "ns", "--pretend"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then namespace __init__ package should not exist (or even the project)
@@ -133,9 +133,9 @@ def test_cli_with_namespace_and_pretend(tmpfolder):
 
 def test_cli_with_empty_namespace(tmpfolder, capsys):
     # Given the command line with the namespace option,
-    sys.argv = ["pyscaffold", "proj", "--namespace"]
+    sys.argv = ["snek", "proj", "--namespace"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     with pytest.raises(SystemExit):
         run()
 
@@ -146,9 +146,9 @@ def test_cli_with_empty_namespace(tmpfolder, capsys):
 
 def test_cli_without_namespace(tmpfolder):
     # Given the command line without the namespace option,
-    sys.argv = ["pyscaffold", "proj"]
+    sys.argv = ["snek", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then namespace dir should not exist

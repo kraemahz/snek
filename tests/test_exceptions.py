@@ -4,7 +4,7 @@ import sys
 
 import pytest
 
-from pyscaffold.exceptions import ErrorLoadingExtension, exceptions2exit
+from snek.exceptions import ErrorLoadingExtension, exceptions2exit
 
 if sys.version_info[:2] >= (3, 8):
     # TODO: Import directly (no need for conditional) when `python_requires = >= 3.8`
@@ -27,7 +27,7 @@ def test_exceptions2exit_verbose(capsys, monkeypatch):
     def func(_):
         raise RuntimeError("Exception raised")
 
-    monkeypatch.setattr("pyscaffold.cli.get_log_level", lambda: logging.DEBUG)
+    monkeypatch.setattr("snek.cli.get_log_level", lambda: logging.DEBUG)
     with pytest.raises(SystemExit):
         func(1)
 
@@ -38,7 +38,7 @@ def test_exceptions2exit_verbose(capsys, monkeypatch):
 
 def test_error_loading_external_extension():
     # Assert the error message displays some meaningful text
-    extension = "pyscaffoldext.fake.extension"
+    extension = "snekext.fake.extension"
 
     # Extension name is given directly
     ex = str(ErrorLoadingExtension(extension))
@@ -46,7 +46,7 @@ def test_error_loading_external_extension():
     assert "fake" in ex
 
     # Entrypoint is given
-    fake = EntryPoint("fake", f"{extension}:Fake", "pyscaffold.cli")
+    fake = EntryPoint("fake", f"{extension}:Fake", "snek.cli")
     ex = str(ErrorLoadingExtension(entry_point=fake))
     assert "an error loading" in ex
     assert "fake" in ex

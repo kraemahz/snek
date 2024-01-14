@@ -11,14 +11,14 @@ from types import SimpleNamespace as Object
 import pytest
 from packaging.version import Version
 
-from pyscaffold import __path__ as pyscaffold_paths
-from pyscaffold import __version__, actions, info, update
-from pyscaffold.file_system import chdir
+from snek import __path__ as snek_paths
+from snek import __version__, actions, info, update
+from snek.file_system import chdir
 
 from .helpers import in_ci, path_as_uri, skip_on_conda_build
 from .system.helpers import normalize_run_args
 
-EDITABLE_PYSCAFFOLD = re.compile(r"^-e.+pyscaffold.*$", re.M | re.I)
+EDITABLE_PYSCAFFOLD = re.compile(r"^-e.+snek.*$", re.M | re.I)
 
 
 class VenvManager:
@@ -54,11 +54,11 @@ class VenvManager:
             logging.debug("SRC via TOXINIDIR: %s", proj_dir)
         else:
             try:
-                location = Path(pyscaffold_paths[0])
+                location = Path(snek_paths[0])
                 assert location.parent.name == "src"
                 proj_dir = location.parent.parent
             except:  # noqa
-                print("\n\nInstall PyScaffold with python setup.py develop!\n\n")
+                print("\n\nInstall Snek with python setup.py develop!\n\n")
                 raise
 
             logging.debug("SRC via working_set: %s, location: %s", proj_dir, location)
@@ -67,9 +67,9 @@ class VenvManager:
 
     def _install_pre_built_wheel(self, proj_dir: Path):
         # CI should pre-build wheels that can be used.
-        candidates = (proj_dir / "dist").glob("PyScaffold*.whl")
+        candidates = (proj_dir / "dist").glob("Snek*.whl")
         wheel = next(iter(sorted(candidates, reverse=True, key=str)), None)
-        assert wheel, "PyScaffold should be pre-built by CI, but it is not..."
+        assert wheel, "Snek should be pre-built by CI, but it is not..."
         return self.install(path_as_uri(wheel))
 
     def _install_from_src(self, proj_dir: Path):
@@ -80,44 +80,44 @@ class VenvManager:
         assert EDITABLE_PYSCAFFOLD.findall(pkg_list)
         return out
 
-    def install_this_pyscaffold(self):
+    def install_this_snek(self):
         # Normally the following command should do the trick
-        # self.venv.install_package('PyScaffold')
-        # but sadly pytest-virtualenv chokes on the src-layout of PyScaffold
+        # self.venv.install_package('Snek')
+        # but sadly pytest-virtualenv chokes on the src-layout of Snek
         proj_dir = self._get_proj_dir()
         if in_ci():
             self._install_pre_built_wheel(proj_dir)
         else:
             self._install_from_src(proj_dir)
 
-        # Make sure pyscaffold was not installed using PyPI
-        assert self.running_version.public <= self.pyscaffold_version().public
+        # Make sure snek was not installed using PyPI
+        assert self.running_version.public <= self.snek_version().public
         self.installed = True
         return self
 
-    def install_pyscaffold(self, major, minor):
-        ver = f"pyscaffold>={major}.{minor},<{major}.{minor + 1}a0"
+    def install_snek(self, major, minor):
+        ver = f"snek>={major}.{minor},<{major}.{minor + 1}a0"
         self.install(ver)
-        installed_version = self.pyscaffold_version().release[:2]
+        installed_version = self.snek_version().release[:2]
         assert installed_version == (major, minor)
         self.installed = True
         return self
 
-    def uninstall_pyscaffold(self):
-        self.run("pip uninstall -y pyscaffold")
+    def uninstall_snek(self):
+        self.run("pip uninstall -y snek")
         putup = self.venv.exe("putup")
         assert str(self.venv.path.resolve()) not in str(Path(putup).resolve())
         self.installed = False
         return self
 
-    def pyscaffold_version(self):
+    def snek_version(self):
         try:
-            cli_version = self.run("python -m pyscaffold.cli --version").lower()
-            return Version(cli_version.replace("pyscaffold ", ""))
+            cli_version = self.run("python -m snek.cli --version").lower()
+            return Version(cli_version.replace("snek ", ""))
         except subprocess.CalledProcessError as ex:
             if (
                 sys.version_info >= (3, 12)
-                and "No module named 'pyscaffold.contrib.six.moves'" in ex.output
+                and "No module named 'snek.contrib.six.moves'" in ex.output
             ):
                 pytest.skip("Cannot import from six.moves in Python >= 3.12")
             raise
@@ -145,10 +145,10 @@ def test_update_version_3_0_to_3_1(tmp_path, with_coverage, venv_mgr):
         name = "my_old_project"
         project = tmp_path / "my_old_project"
         (
-            venv_mgr.install_pyscaffold(3, 0)
+            venv_mgr.install_snek(3, 0)
             .putup(name)
-            .uninstall_pyscaffold()
-            .install_this_pyscaffold()
+            .uninstall_snek()
+            .install_this_snek()
             .putup(f"--update {project}", with_coverage=with_coverage)
         )
     setup_cfg = Path(project, "setup.cfg").read_text(encoding="utf-8")
@@ -163,10 +163,10 @@ def test_update_version_3_0_to_3_1_pretend(tmp_path, with_coverage, venv_mgr):
         name = "my_old_project"
         project = tmp_path / "my_old_project"
         (
-            venv_mgr.install_pyscaffold(3, 0)
+            venv_mgr.install_snek(3, 0)
             .putup(name)
-            .uninstall_pyscaffold()
-            .install_this_pyscaffold()
+            .uninstall_snek()
+            .install_this_snek()
             .putup(f"--pretend --update {project}", with_coverage=with_coverage)
         )
     setup_cfg = Path(project, "setup.cfg").read_text(encoding="utf-8")
@@ -180,15 +180,15 @@ def test_inplace_update(tmp_path, with_coverage, venv_mgr):
     # Given an existing project
     project = tmp_path / "my_old_project"
     cmd = f"--name my-ns-proj --package project --namespace my_ns {project}"
-    venv_mgr.install_this_pyscaffold().putup(cmd)
+    venv_mgr.install_this_snek().putup(cmd)
 
     # With an existing configuration
     assert project / "setup.cfg"
     parser = ConfigParser()
     parser.read(project / "setup.cfg")
     assert parser["metadata"]["name"] == "my-ns-proj"
-    assert parser["pyscaffold"]["package"] == "project"
-    assert parser["pyscaffold"]["namespace"] == "my_ns"
+    assert parser["snek"]["package"] == "project"
+    assert parser["snek"]["namespace"] == "my_ns"
 
     # And without some extensions
     for file in (".pre-commit-config.yaml", ".isort.cfg"):
@@ -207,8 +207,8 @@ def test_inplace_update(tmp_path, with_coverage, venv_mgr):
     parser = ConfigParser()
     parser.read(project / "setup.cfg")
     assert parser["metadata"]["name"] == "my-ns-proj"
-    assert parser["pyscaffold"]["package"] == "project"
-    assert parser["pyscaffold"]["namespace"] == "my_ns"
+    assert parser["snek"]["package"] == "project"
+    assert parser["snek"]["namespace"] == "my_ns"
 
     # Some information (metadata) require manual update
     # unless the --force option is used
@@ -231,17 +231,17 @@ def test_update_setup_cfg(tmpfolder):
     # Given an existing setup.cfg
     proj = Path(tmpfolder, "proj")
     proj.mkdir(parents=True, exist_ok=True)
-    (proj / "setup.cfg").write_text("[metadata]\n\n[pyscaffold]\n")
+    (proj / "setup.cfg").write_text("[metadata]\n\n[snek]\n")
     # when we update it
     extensions = [Object(name="cirrus", persist=True), Object(name="no", persist=False)]
     opts = {"project_path": proj, "extensions": extensions}
     _, opts = actions.get_default_options({}, opts)
     update.update_setup_cfg({}, opts)
     cfg = info.read_setupcfg(proj / "setup.cfg")
-    # then it should show the most update pyscaffold version
-    assert cfg["pyscaffold"]["version"].value == __version__
-    assert "cirrus" in cfg["pyscaffold"]["extensions"].value
-    assert "no" not in cfg["pyscaffold"]["extensions"].value
+    # then it should show the most update snek version
+    assert cfg["snek"]["version"].value == __version__
+    assert "cirrus" in cfg["snek"]["extensions"].value
+    assert "no" not in cfg["snek"]["extensions"].value
     # and some configuration keys should be present
     assert "options" in cfg
 
@@ -249,7 +249,7 @@ def test_update_setup_cfg(tmpfolder):
 def test_update_none_param(tmpfolder):
     invalid = """\
     [metadata]
-    [pyscaffold]
+    [snek]
     version = 4
     """
     Path(tmpfolder, "setup.cfg").write_text(dedent(invalid))
@@ -278,9 +278,9 @@ def test_add_dependencies_with_comments(tmpfolder):
     config = """\
     [metadata]
     project_urls =
-        Download = https://pypi.org/project/PyScaffold/#files
+        Download = https://pypi.org/project/Snek/#files
         # the previous line does not have a comment, it's just part of the URL
-        Issues = https://github.com/pyscaffold/pyscaffold/issues  # this is a comment!
+        Issues = https://github.com/snek/snek/issues  # this is a comment!
     [options]
     install_requires =
         importlib-metadata; python_version<"3.8"
@@ -303,10 +303,10 @@ def existing_config(tmpfolder):
     config = """\
     [options]
     setup_requires =
-        pyscaffold
+        snek
         somedep>=3.8
 
-    [pyscaffold]
+    [snek]
     version = 3.2.2
     """
     cfg = Path(tmpfolder) / "setup.cfg"
@@ -326,7 +326,7 @@ def test_handover_setup_requires(tmpfolder, existing_config):
 
 
 def test_handover_setup_requires_no_pyproject(tmpfolder, existing_config):
-    # Given an existing setup.cfg with outdated setup_requires and pyscaffold version,
+    # Given an existing setup.cfg with outdated setup_requires and snek version,
     # when we update it without no_pyproject
     opts = {"project_path": tmpfolder, "pretend": False, "isolated_build": False}
     update.handover_setup_requires({}, opts)
@@ -337,7 +337,7 @@ def test_handover_setup_requires_no_pyproject(tmpfolder, existing_config):
 
 @pytest.fixture
 def pyproject_from_old_extension(tmpfolder):
-    """Old pyproject.toml file as produced by pyscaffoldext-pyproject"""
+    """Old pyproject.toml file as produced by snekext-pyproject"""
     config = """\
     [build-system]
     requires = ["setuptools"]
@@ -369,8 +369,8 @@ def test_migrate_setup_requires(tmpfolder, existing_config):
     assert "somedep>=3.8" in deps
     setupcfg = info.read_setupcfg(existing_config)
     assert "setup_requires" not in setupcfg["options"]
-    # but pyscaffold is not included.
-    assert "pyscaffold" not in deps
+    # but snek is not included.
+    assert "snek" not in deps
 
 
 def test_replace_find_with_find_namespace(tmpfolder):

@@ -7,9 +7,9 @@ from subprocess import CalledProcessError
 
 import pytest
 
-from pyscaffold import __version__ as pyscaffold_version
-from pyscaffold.api import create_project
-from pyscaffold.extensions.venv import Venv
+from snek import __version__ as snek_version
+from snek.api import create_project
+from snek.extensions.venv import Venv
 
 from .helpers import find_venv_bin, run
 
@@ -36,12 +36,12 @@ def dont_load_dotenv(monkeypatch):
 @pytest.mark.skipif(
     os.name == "nt", reason="pipenv fails due to colors (non-utf8) under Windows 10"
 )
-def test_pipenv_works_with_pyscaffold(tmpfolder, monkeypatch, venv):
-    # Given a project is created with pyscaffold
+def test_pipenv_works_with_snek(tmpfolder, monkeypatch, venv):
+    # Given a project is created with snek
     # and it has some dependencies in setup.cfg
     create_project(project_path="myproj", requirements=["platformdirs"])
 
-    if any(ch in pyscaffold_version for ch in ("b", "a", "pre", "rc")):
+    if any(ch in snek_version for ch in ("b", "a", "pre", "rc")):
         flags = "--pre"
     else:
         flags = ""
@@ -82,10 +82,10 @@ def test_pipenv_works_with_pyscaffold(tmpfolder, monkeypatch, venv):
 @pytest.mark.xfail(
     sys.version_info < (3, 7), reason="pip-compile may fail in old Python"
 )
-def test_piptools_works_with_pyscaffold(tmpfolder, monkeypatch):
+def test_piptools_works_with_snek(tmpfolder, monkeypatch):
     venv_path = Path(str(tmpfolder), "myproj/.venv").resolve()
     find = partial(find_venv_bin, venv_path)
-    # Given a project is created with pyscaffold
+    # Given a project is created with snek
     # and it has some dependencies in setup.cfg
     create_project(
         project_path="myproj", extensions=[Venv()], requirements=["platformdirs"]

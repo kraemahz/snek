@@ -1,5 +1,4 @@
-# For PyScaffold contributors using conda/mamba
-name: pyscaffold
+name: snek
 channels:
   - conda-forge
 dependencies:

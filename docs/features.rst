@@ -4,7 +4,7 @@
 Features
 ========
 
-PyScaffold comes with a lot of elaborated features and configuration defaults
+Snek comes with a lot of elaborated features and configuration defaults
 to make the most common tasks in developing, maintaining and distributing your
 own Python package as easy as possible.
 
@@ -18,7 +18,7 @@ That means in most cases it is not necessary to tamper with ``setup.py``.
 The syntax of ``setup.cfg`` is pretty much self-explanatory and well commented,
 check out this :ref:`example <configuration>` or `setuptools' documentation`_.
 
-If you use tox_, PyScaffold will already configure everything out of the box
+If you use tox_, Snek will already configure everything out of the box
 [#feat1]_ so you can easily build your distribution, in a :pep:`517`/:pep:`518`
 compliant way, by just running::
 
@@ -44,7 +44,7 @@ remember that for this to work, you have to first register a PyPI_ account (and
 also a TestPyPI_ one).
 
 Under the hood, tox_ uses twine_ for uploads to PyPI_ (as configured by
-PyScaffold in the ``tox.ini`` file), so if you prefer running things yourself,
+Snek in the ``tox.ini`` file), so if you prefer running things yourself,
 you can also do::
 
     pip install twine
@@ -62,7 +62,7 @@ Namespace Packages
 ------------------
 
 If you want to work with `namespace packages`_, you will be glad to hear that
-PyScaffold supports the :pep:`420` specification for implicit namespaces,
+Snek supports the :pep:`420` specification for implicit namespaces,
 which is very useful to distribute a larger package as a collection of smaller ones.
 ``putup`` can automatically setup everything you need with the ``--namespace``
 option. For example, use::
@@ -72,7 +72,7 @@ option. For example, use::
 to define ``my_package`` inside the namespace ``com.my_domain``, Java-style.
 
 .. note::
-   Prior to PyScaffold 4.0, namespaces were generated
+   Prior to Snek 4.0, namespaces were generated
    explicitly with `pkg_resources`_, instead of :pep:`420`. Moreover, if you
    are developing "subpackages" for already existing namespaces, please check
    which convention the namespaces are currently following. Different styles of
@@ -164,7 +164,7 @@ adjusted for Python projects and the most common tools.
 Sphinx Documentation
 ====================
 
-PyScaffold will prepare a ``docs`` directory with all you need to start writing
+Snek will prepare a ``docs`` directory with all you need to start writing
 your documentation. Start editing the file ``docs/index.rst`` to extend the documentation
 and note that even the `Numpy and Google style docstrings`_ are activated by default.
 
@@ -199,20 +199,20 @@ guides`_ to learn how to import your documents into the website.
 Dependency Management in a Breeze
 =================================
 
-PyScaffold out of the box allows developers to express abstract dependencies
+Snek out of the box allows developers to express abstract dependencies
 and take advantage of ``pip`` to manage installation. It also can be used
 together with a `virtual environment`_ (also called *virtual env*)
 to avoid `dependency hell`_ during both development and production stages.
 
 If you like the traditional style of dependency management using a virtual env
-co-located with your package, PyScaffold can help to reduce the boilerplate.
+co-located with your package, Snek can help to reduce the boilerplate.
 With the ``--venv`` option, a virtualenv will be bootstrapped and waiting to be
 activated. And if you are the kind of person that always install the same
-packages when creating a virtual env, PyScaffold's option ``--venv-install
+packages when creating a virtual env, Snek's option ``--venv-install
 PACKAGE`` will be the right one for you. You can even integrate `pip-tools`_ in
 this workflow, by putting a ``-e file:.`` in your *requirements.in*.
 
-Alternatively, PyPA's `Pipenv`_ can be integrated in any PyScaffold-generated
+Alternatively, PyPA's `Pipenv`_ can be integrated in any Snek-generated
 project by following standard `setuptools`_ conventions.  Keeping abstract
 requirements in ``setup.cfg`` and running ``pipenv install -e .`` is basically
 what you have to do.
@@ -229,7 +229,7 @@ You can check the details on how all of that works in
 Automation, Tests & Coverage
 ============================
 
-PyScaffold relies on pytest_ to run all automated tests defined in the subfolder
+Snek relies on pytest_ to run all automated tests defined in the subfolder
 ``tests``.  Some sane default flags for pytest are already defined in the
 ``[tool:pytest]`` section of ``setup.cfg``. The pytest plugin `pytest-cov`_ is used
 to automatically generate a coverage report. It is also possible to provide
@@ -254,7 +254,7 @@ Alternatively, you can also generate configuration files for
 Managing test environments and tasks with tox
 ---------------------------------------------
 
-Projects generated with PyScaffold are configured by default to use `tox`_ to
+Projects generated with Snek are configured by default to use `tox`_ to
 run some common tasks. Tox is a `virtual environment`_ management and test tool that allows
 you to define and run custom tasks that call executables from Python packages.
 
@@ -301,7 +301,7 @@ Packages defined in ``requirements.txt`` can be easily installed with::
 
 The most popular open source licenses can be easily added to your project with
 the help of the ``--license`` flag. You only need to specify the license identifier
-according to the `SPDX index`_ so PyScaffold can generate the appropriate
+according to the `SPDX index`_ so Snek can generate the appropriate
 ``LICENSE.txt`` and configure your package. For example::
 
     putup --license MPL-2.0 my_project
@@ -314,39 +314,39 @@ more information about each license in the `SPDX index`_ and `choosealicense.com
 Extensions
 ==========
 
-PyScaffold offers several extensions:
+Snek offers several extensions:
 
 * If you want a project setup for a *Data Science* task, just use ``--dsproject``
-  after having installed `pyscaffoldext-dsproject`_.
+  after having installed `snekext-dsproject`_.
 
 * Have a ``README.md`` based on Markdown instead of ``README.rst`` by using
-  ``--markdown`` after having installed `pyscaffoldext-markdown`_.
+  ``--markdown`` after having installed `snekext-markdown`_.
 
 * Create a `Django project`_ with the flag ``--django`` which is equivalent to
-  ``django-admin startproject my_project`` enhanced by PyScaffold's features
-  (requires `pyscaffoldext-django`_).
+  ``django-admin startproject my_project`` enhanced by Snek's features
+  (requires `snekext-django`_).
 
 * … and many more like ``--gitlab`` to create the necessary files for `GitLab CI`_,
   ``--github-actions`` to configure `GitHub Actions`_,
-  ``--travis`` for `Travis CI`_ (see `pyscaffoldext-travis`_), or
-  ``--cookiecutter`` for Cookiecutter_ integration (see `pyscaffoldext-cookiecutter`_).
+  ``--travis`` for `Travis CI`_ (see `snekext-travis`_), or
+  ``--cookiecutter`` for Cookiecutter_ integration (see `snekext-cookiecutter`_).
 
-Find more extensions within the `PyScaffold organisation`_ and consider contributing your own,
+Find more extensions within the `Snek organisation`_ and consider contributing your own,
 it is very easy!
 You can quickly generate a template for your extension with the
-``--custom-extension`` option after having installed `pyscaffoldext-custom-extension`_.
+``--custom-extension`` option after having installed `snekext-custom-extension`_.
 Have a look in our guide on :ref:`writing extensions <extensions>` to get started.
 
-All extensions can easily be installed with ``pip install pyscaffoldext-NAME``.
+All extensions can easily be installed with ``pip install snekext-NAME``.
 
 Easy Updating
 =============
 
 Keep your project's scaffold up-to-date by applying ``putup --update my_project``
-when a new version of PyScaffold was released.
+when a new version of Snek was released.
 An update will only overwrite files that are not often altered by users like
 ``setup.py``. To update all files use ``--update --force``.
-An existing project that was not setup with PyScaffold can be converted with
+An existing project that was not setup with Snek can be converted with
 ``putup --force existing_project``. The force option is completely safe to use
 since the git repository of the existing project is not touched!
 Please check out the :ref:`updating` docs for more information on how to migrate
@@ -358,24 +358,24 @@ Adding features
 With the help of an **experimental** updating functionality it is also possible to
 add additional features to your existing project scaffold. If a scaffold lacking
 ``.cirrus.yml`` was created with ``putup my_project`` it can later be added by issuing
-``putup my_project --update --cirrus``. For this to work, PyScaffold stores all
-options that were initially used to put up the scaffold under the ``[pyscaffold]``
-section in ``setup.cfg``. Be aware that right now PyScaffold provides no way to
+``putup my_project --update --cirrus``. For this to work, Snek stores all
+options that were initially used to put up the scaffold under the ``[snek]``
+section in ``setup.cfg``. Be aware that right now Snek provides no way to
 remove a feature which was once added.
 
-PyScaffold Configuration
+Snek Configuration
 ========================
 
-After having used PyScaffold for some time, you probably will notice yourself
+After having used Snek for some time, you probably will notice yourself
 repeating the same options most of the time for every new project.
-Don't worry, PyScaffold now allows you to set default flags using the
+Don't worry, Snek now allows you to set default flags using the
 **experimental** ``default.cfg`` file [#feat3]_.
 Check out our :ref:`Configuration <default-cfg>` section to get started.
 
 
 .. [#feat1] Tox is a `virtual environment`_ management and test tool that allows
    you to define and run custom tasks that call executables from Python packages.
-   In general, PyScaffold will already pre-configure `tox`_ to do the
+   In general, Snek will already pre-configure `tox`_ to do the
    most common tasks for you. You can have a look on what is available out of
    the box by running ``tox -av``, or go ahead and check `tox`_ docs to
    automatise your own tasks.
@@ -385,7 +385,7 @@ Check out our :ref:`Configuration <default-cfg>` section to get started.
    Therefore, be always sure your are done and all set before publishing.
 
 .. [#feat3] Experimental features can change the way they work (or be removed)
-   between any releases. If you are scripting with PyScaffold, please avoid using them.
+   between any releases. If you are scripting with Snek, please avoid using them.
 
 .. [#feat4] Requires ``setuptools-scm`` to be installed (``pip install setuptools_scm``)
 
@@ -421,13 +421,6 @@ Check out our :ref:`Configuration <default-cfg>` section to get started.
 .. _Cirrus CI: https://cirrus-ci.org/
 .. _pytest-cov: https://github.com/pytest-dev/pytest-cov
 .. _Coveralls: https://coveralls.io/
-.. _pyscaffoldext-dsproject: https://github.com/pyscaffold/pyscaffoldext-dsproject
-.. _pyscaffoldext-custom-extension: https://github.com/pyscaffold/pyscaffoldext-custom-extension
-.. _pyscaffoldext-markdown: https://github.com/pyscaffold/pyscaffoldext-markdown
-.. _pyscaffoldext-django: https://github.com/pyscaffold/pyscaffoldext-django
-.. _pyscaffoldext-travis: https://github.com/pyscaffold/pyscaffoldext-travis
-.. _pyscaffoldext-cookiecutter: https://github.com/pyscaffold/pyscaffoldext-cookiecutter
-.. _PyScaffold organisation: https://github.com/pyscaffold/
 .. _dependency hell: https://en.wikipedia.org/wiki/Dependency_hell
 .. _pkg_resources: https://setuptools.pypa.io/en/stable/pkg_resources.html
 .. _make: https://en.wikipedia.org/wiki/Make_(software)

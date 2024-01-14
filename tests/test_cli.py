@@ -5,9 +5,9 @@ from unittest.mock import Mock
 
 import pytest
 
-from pyscaffold import cli
-from pyscaffold.exceptions import ErrorLoadingExtension
-from pyscaffold.file_system import localize_path as lp
+from snek import cli
+from snek.exceptions import ErrorLoadingExtension
+from snek.file_system import localize_path as lp
 
 from .log_helpers import find_report
 
@@ -121,22 +121,22 @@ def test_main_with_list_actions(tmpfolder, capsys, isolated_logger):
     # then the action list should be printed,
     out, _ = capsys.readouterr()
     assert "Planned Actions" in out
-    assert "pyscaffold.actions:get_default_options" in out
-    assert "pyscaffold.structure:define_structure" in out
-    assert "pyscaffold.extensions.no_tox:remove_files" in out
-    assert "pyscaffold.structure:create_structure" in out
-    assert "pyscaffold.actions:init_git" in out
+    assert "snek.actions:get_default_options" in out
+    assert "snek.structure:define_structure" in out
+    assert "snek.extensions.no_tox:remove_files" in out
+    assert "snek.structure:create_structure" in out
+    assert "snek.actions:init_git" in out
     # but no project should be created
     assert not os.path.exists(args[0])
 
 
 def test_wrong_extension(monkeypatch, tmpfolder):
-    # Given an entry point with some problems is registered in the pyscaffold.cli group
+    # Given an entry point with some problems is registered in the snek.cli group
     # (e.g. failing implementation, wrong dependencies that cause the python file to
     # fail to evaluate)
-    fake = EntryPoint("fake", "pyscaffoldext.SOOO__fake__:Fake", "pyscaffold.cli")
-    entry_points_mock = Mock(return_value={"pyscaffold.cli": [fake]})
-    monkeypatch.setattr("pyscaffold.extensions.entry_points", entry_points_mock)
+    fake = EntryPoint("fake", "snekext.SOOO__fake__:Fake", "snek.cli")
+    entry_points_mock = Mock(return_value={"snek.cli": [fake]})
+    monkeypatch.setattr("snek.extensions.entry_points", entry_points_mock)
     with pytest.raises(ErrorLoadingExtension, match=r".*error loading.*fake.*"):
         # When putup is called with the corresponding flag
         args = ["my-project"]
@@ -146,7 +146,7 @@ def test_wrong_extension(monkeypatch, tmpfolder):
 
 
 def test_run(tmpfolder, git_mock):
-    sys.argv = ["pyscaffold", "my-project"]
+    sys.argv = ["snek", "my-project"]
     cli.run()
     assert os.path.exists(sys.argv[1])
 

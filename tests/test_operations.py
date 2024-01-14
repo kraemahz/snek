@@ -2,7 +2,7 @@ import os
 import stat
 from unittest.mock import Mock
 
-from pyscaffold.operations import (
+from snek.operations import (
     add_permissions,
     create,
     no_overwrite,
@@ -19,7 +19,7 @@ def test_create(monkeypatch):
     def spy(path, *_1, **_2):
         created.update({path: True})
 
-    monkeypatch.setattr("pyscaffold.file_system.create_file", spy)
+    monkeypatch.setattr("snek.file_system.create_file", spy)
 
     # When content is string, execute, even if it is empty
     for contents in ("contents", ""):
@@ -40,7 +40,7 @@ def test_remove(monkeypatch):
         removed.update({path: True})
 
     monkeypatch.setattr("pathlib.Path.exists", lambda _: True)
-    monkeypatch.setattr("pyscaffold.file_system.rm_rf", spy)
+    monkeypatch.setattr("snek.file_system.rm_rf", spy)
 
     for contents in ("contents", "", None):
         path = uniqpath()

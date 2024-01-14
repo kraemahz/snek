@@ -7,71 +7,71 @@ Installation
 Requirements
 ============
 
-The installation of PyScaffold only requires a recent version of of `setuptools`_,
+The installation of Snek only requires a recent version of of `setuptools`_,
 (at least version 46.1), pip_, as well as a `working installation of Git`_
 (meaning at least your *name and email were configured* but also
 :ref:`setting the default branch <git-default-branch>` might be useful in your first-time `git setup`_).
 Especially Windows users should make sure that the command ``git`` is available on
 the command line. Otherwise, check and update your ``PATH`` environment
-variable or run PyScaffold from the *Git Bash*.
+variable or run Snek from the *Git Bash*.
 
 .. tip::
    It is recommended to use an `isolated development environment`_ as provided
    by `virtualenv`_ or `conda`_ for your work with Python in general. You
-   might want to install PyScaffold globally in your system, but consider
+   might want to install Snek globally in your system, but consider
    using virtual environments when developing your packages.
 
 Installation
 ============
 
-PyScaffold relies on a Python package manager for its installation.
+Snek relies on a Python package manager for its installation.
 The easiest way of getting started is via our loved `pip`_.
 Make sure you have ``pip`` installed [#inst1]_, then simply type::
 
-    pip install --upgrade pyscaffold
+    pip install --upgrade snek
 
 to get the latest stable version. The most recent development version can be
 installed with::
 
-    pip install --pre --upgrade pyscaffold
+    pip install --pre --upgrade snek
 
 Using ``pip`` also has the advantage that all requirements are automatically
 installed.
 
-If you want to install PyScaffold with all official extensions, run::
+If you want to install Snek with all official extensions, run::
 
-    pip install --upgrade pyscaffold[all]
+    pip install --upgrade snek[all]
 
 
 Alternative Methods
 ===================
 
-It is very easy to get PyScaffold installed with `pip`_, but some people do
+It is very easy to get Snek installed with `pip`_, but some people do
 prefer other package managers such as `conda`_ while doing their work.
 
 If you do lots of number crunching or data science in general [#inst2]_ and you already
 rely on `conda-forge`_ packages, you might also use the following method::
 
-    conda install -c conda-forge pyscaffold
+    conda install -c conda-forge snek
 
 It is also very common for developers to have more then one Python version
 installed on their machines, and a plethora of virtual environments spread all
-over the place… Instead of constantly re-installing PyScaffold in each one of
+over the place… Instead of constantly re-installing Snek in each one of
 these installations and virtual environments, you can use `pipx`_ to do a
 "minimally-invasive" system-wide installation and have the ``putup`` command
 always available independently of which Python you are using::
 
-    pipx install pyscaffold
+    pipx install snek
 
 Please check the documentation of each tool to understand how they work with
 extra requirements (e.g. ``[all]``) or how to add extensions (e.g. ``pipx
-inject pyscaffold pyscaffoldext-dsproject``).
+inject snek snekext-dsproject``).
 
 
 Additional Requirements
 =======================
 
-We strongly recommend installing `tox`_ together with PyScaffold (both can be installed
+We strongly recommend installing `tox`_ together with Snek (both can be installed
 with pip_, conda_ or pipx_), so you can take advantage of its automation
 capabilities and avoid having to install dependencies/requirements manually.
 If you do that, just by running the commands ``tox`` and ``tox -e docs``, you
@@ -93,7 +93,7 @@ development:
 
 
 .. note::
-   If you have problems using PyScaffold, please make sure you are using
+   If you have problems using Snek, please make sure you are using
    Python 3.6 or greater.
 
 
@@ -117,7 +117,7 @@ development:
 .. _virtualenv: https://virtualenv.pypa.io/en/stable/
 .. _pip: https://pip.pypa.io/en/stable/
 .. _conda: https://docs.conda.io/en/latest/
-.. _conda-forge: https://anaconda.org/conda-forge/pyscaffold
+.. _conda-forge: https://anaconda.org/conda-forge/snek
 .. _pipx: https://pipxproject.github.io/pipx/
 .. _Django: https://pypi.org/project/Django/
 .. _Cookiecutter: https://cookiecutter.readthedocs.io/en/stable/

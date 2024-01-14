@@ -1,7 +1,7 @@
 Project Structure Representation
 ================================
 
-Each Python package project is internally represented by PyScaffold as a tree
+Each Python package project is internally represented by Snek as a tree
 data structure, that directly relates to a directory entry in the file system.
 This tree is implemented as a simple (and possibly nested) :obj:`dict` in which
 keys indicate the path where files will be generated, while values indicate
@@ -35,7 +35,7 @@ In this case, the first element of the tuple is the file content, while the
 second element will be a function (or more generally a :obj:`callable` object)
 responsible for writing that content to the disk. For example, the dict::
 
-    from pyscaffold.operations import create
+    from snek.operations import create
 
     {
         "src": {
@@ -48,30 +48,30 @@ responsible for writing that content to the disk. For example, the dict::
 represents a ``src/namespace/module.py`` file, under the project directory,
 with content ``print("Hello World!")``, that will written to the disk.
 When no operation is specified (i.e. when using a simple string instead of a
-tuple), PyScaffold will assume :obj:`~pyscaffold.operations.create` by default.
+tuple), Snek will assume :obj:`~snek.operations.create` by default.
 
 .. note::
 
-    The :obj:`~pyscaffold.operations.create` function simply creates a text file
+    The :obj:`~snek.operations.create` function simply creates a text file
     to the disk using UTF-8 encoding and the default file permissions. This
-    behaviour can be modified by wrapping :obj:`~pyscaffold.operations.create`
+    behaviour can be modified by wrapping :obj:`~snek.operations.create`
     within other functions/callables, for example::
 
-        from pyscaffold.operations import create, no_overwrite
+        from snek.operations import create, no_overwrite
 
         {"file": ("content", no_overwrite(create))}
 
     will prevent the ``file`` to be written if it already exists. See
-    :mod:`pyscaffold.operations` for more information on how to write your own
+    :mod:`snek.operations` for more information on how to write your own
     file operation and other options.
 
 Finally, while it is simple to represent file contents as a string directly,
 most of the times we want to *customize* them according to the project
-parameters being created (e.g. package or author's name). So PyScaffold also
+parameters being created (e.g. package or author's name). So Snek also
 accepts :obj:`string.Template` objects and functions (with a single :obj:`dict`
 argument and a :obj:`str` return value) to be used as contents. These templates
-and functions will be called with :obj:`PyScaffold's options
-<pyscaffold.operations.ScaffoldOpts>` when its time to create the file to the
+and functions will be called with :obj:`Snek's options
+<snek.operations.ScaffoldOpts>` when its time to create the file to the
 disk.
 
 .. note::

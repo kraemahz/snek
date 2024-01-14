@@ -7,9 +7,9 @@ from unittest.mock import Mock
 
 import pytest
 
-from pyscaffold import api, cli
-from pyscaffold import file_system as fs
-from pyscaffold.extensions import venv
+from snek import api, cli
+from snek import file_system as fs
+from snek.extensions import venv
 
 from ..helpers import ArgumentParser, disable_import, rmpath, uniqstr
 
@@ -218,13 +218,13 @@ def test_cli_with_venv_config(tmpfolder):
     assert not venv_path.exists()
     # and a config file exists containing venv
     config = """
-    [pyscaffold]
+    [snek]
     extensions =
         venv
     venv_install =
         pytest>=6.0.0
     """
-    config_file = Path(tmpfolder, ".pyscaffold.cfg")
+    config_file = Path(tmpfolder, ".snek.cfg")
     config_file.write_text(cleandoc(config), encoding="utf-8")
     # when the CLI is invoked with that config file
     cli.main(["proj", "--config", str(config_file)])

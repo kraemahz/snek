@@ -16,12 +16,12 @@ skipping all the difficult and tedious bits::
 
 This will create a new folder called ``my_project`` containing a
 *perfect project template* with everything you need for getting things done.
-Checkout out `this demo project`_, which was set up using Pyscaffold.
+Checkout out `this demo project`_, which was set up using Snek.
 
 .. tip::
    .. versionadded:: 4.0
       We are trying out a brand new *interactive mode* that makes it
-      even easier to use PyScaffold in its full potential.
+      even easier to use Snek in its full potential.
       If you want to give it a shot, use the ``--interactive``, or simply ``-i`` option.
 
       The interactive command equivalent to the previous example is:
@@ -58,18 +58,18 @@ tox_ to run automated project tasks like building a package file for
 distribution (or publishing).
 
 .. image:: gfx/demo.gif
-    :alt: Creating a simple package with PyScaffold
+    :alt: Creating a simple package with Snek
     :target: https://asciinema.org/a/qzh5ZYKl1q5xYEnM4CHT04HdW?autoplay=1
 
-Type ``putup -h`` to learn about :ref:`other things PyScaffold can do <features>` for your project,
-and if you are not convinced yet, have a look on these :ref:`reasons to use PyScaffold <reasons>`.
+Type ``putup -h`` to learn about :ref:`other things Snek can do <features>` for your project,
+and if you are not convinced yet, have a look on these :ref:`reasons to use Snek <reasons>`.
 
-There is also a `video tutorial`_ on how to develop a command-line application with the help of PyScaffold.
+There is also a `video tutorial`_ on how to develop a command-line application with the help of Snek.
 
 Notes
 -----
 
-#. PyScaffold's project template makes use of a dedicated ``src``
+#. Snek's project template makes use of a dedicated ``src``
    folder to store all the package files meant for distribution (additional
    files like tests and documentation are kept in their own separated folders).
    You can find some comments and useful links about this design decision in
@@ -94,20 +94,20 @@ Notes
 Examples
 ========
 
-Just a few examples to get you an idea of how easy PyScaffold is to use:
+Just a few examples to get you an idea of how easy Snek is to use:
 
 ``putup my_little_project``
-  The simplest way of using PyScaffold. A directory ``my_little_project`` is
+  The simplest way of using Snek. A directory ``my_little_project`` is
   created with a Python package named exactly the same. The MIT license will be used.
 
 ``putup -i my_little_project``
-  If you are unsure on how to use PyScaffold, or keep typing ``putup --help``
+  If you are unsure on how to use Snek, or keep typing ``putup --help``
   all the time, the **experimental** ``--interactive`` (or simply ``-i``), is
   your best friend.
   It will open your default text editor with a file containing examples and
   explanations on how to use ``putup`` (think of it as an "editable" ``--help``
   text, once the file is saved and closed all the values you leave there are
-  processed by PyScaffold). You might find some familiarities in the way this
+  processed by Snek). You might find some familiarities in the way this
   option works with ``git rebase -i``, including the capacity of choosing a
   different text editor by setting the ``EDITOR`` (or ``VISUAL``) environment
   variable in your terminal.
@@ -150,15 +150,13 @@ Just a few examples to get you an idea of how easy PyScaffold is to use:
 .. [#ex1] Notice the usage of `SPDX identifiers`_ for specifying the license
    in the CLI
 
-.. [#ex2] Requires the installation of pyscaffoldext-django_.
-
 
 .. _configuration:
 
 Package Configuration
 =====================
 
-Projects set up with PyScaffold rely on `setuptools`_, and therefore can be
+Projects set up with Snek rely on `setuptools`_, and therefore can be
 easily configured/customised via ``setup.cfg``. Check out the example below:
 
 .. literalinclude:: ./example_setup.cfg
@@ -167,38 +165,38 @@ easily configured/customised via ``setup.cfg``. Check out the example below:
 You might also want to have a look on `pyproject.toml`_ for specifying
 dependencies required during the build:
 
-.. literalinclude:: ../src/pyscaffold/templates/pyproject_toml.template
+.. literalinclude:: ../src/snek/templates/pyproject_toml.template
     :language: toml
 
-Please note PyScaffold will add some internal information to ``setup.cfg``,
+Please note Snek will add some internal information to ``setup.cfg``,
 we do that to make updates a little smarter.
 
 .. note::
    To avoid splitting the configuration and build parameters among several
-   files, PyScaffold uses the same file as `setuptools`_ (``setup.cfg``).
+   files, Snek uses the same file as `setuptools`_ (``setup.cfg``).
    Storing configuration in `pyproject.toml`_ is not supported.
    In the future, if the default build metadata location changes (as proposed
-   by :pep:`621`), PyScaffold will follow the same pattern.
+   by :pep:`621`), Snek will follow the same pattern.
 
 
 .. _default-cfg:
 
-PyScaffold's Own Configuration
+Snek's Own Configuration
 ==============================
 
-PyScaffold also allows you to save your favourite configuration to a file that
+Snek also allows you to save your favourite configuration to a file that
 will be automatically read every time you run ``putup``, this way you can avoid
 always retyping the same command line options.
 
 The locations of the configuration files vary slightly across platforms, but in
 general the following rule applies:
 
-- Linux: ``$XDG_CONFIG_HOME/pyscaffold/default.cfg`` with fallback to ``~/.config/pyscaffold/default.cfg``
-- OSX: ``~/Library/Application Support/pyscaffold/default.cfg``
-- Windows(≥7): ``%APPDATA%\pyscaffold\pyscaffold\default.cfg``
+- Linux: ``$XDG_CONFIG_HOME/snek/default.cfg`` with fallback to ``~/.config/snek/default.cfg``
+- OSX: ``~/Library/Application Support/snek/default.cfg``
+- Windows(≥7): ``%APPDATA%\snek\snek\default.cfg``
 
 The file format resembles the ``setup.cfg`` generated automatically by
-PyScaffold, but with only the ``metadata`` and ``pyscaffold`` sections, for
+Snek, but with only the ``metadata`` and ``snek`` sections, for
 example:
 
 .. code-block:: ini
@@ -208,7 +206,7 @@ example:
     author-email = john.joe@gmail.com
     license = MPL-2.0
 
-    [pyscaffold]
+    [snek]
     extensions =
         cirrus
         pre-commit
@@ -226,12 +224,12 @@ will have the same effect as if you had typed::
     For the time being, only the following options are allowed in the config file:
 
     - **metadata** section: ``author``, ``author-email`` and ``license``
-    - **pyscaffold** section: ``extensions`` (and associated opts)
+    - **snek** section: ``extensions`` (and associated opts)
 
     Options associated with extensions are the ones prefixed by an extension name.
 
 
-To prevent PyScaffold from reading an existing config file, you can pass the
+To prevent Snek from reading an existing config file, you can pass the
 ``--no-config`` option in the CLI. You can also save the given options when
 creating a new project with the ``--save-config`` option. Finally, to read the
 configurations from a location other then the default, use the ``--config PATH``
@@ -243,9 +241,9 @@ option. See ``putup --help`` for more details.
     feature will work, so its API (including file format and name) is not considered
     stable and might change between minor versions. As previously stated, if
     the configuration file for `setuptools`_ changes (e.g. with :pep:`621`),
-    PyScaffold will follow that and change its own configuration.
+    Snek will follow that and change its own configuration.
 
-    This means that in future versions, PyScaffold will likely adopt a more
+    This means that in future versions, Snek will likely adopt a more
     `pyproject.toml`-style configuration (and as a consequence the file name
     and extension might change).
 
@@ -253,11 +251,8 @@ option. See ``putup --help`` for more details.
 .. _setuptools: https://setuptools.pypa.io/en/stable/userguide/declarative_config.html
 .. _pyproject.toml: https://setuptools.pypa.io/en/stable/build_meta.html
 .. _SPDX identifiers: https://spdx.org/licenses/
-.. _pyscaffoldext-django: https://pyscaffold.org/projects/django/en/stable/
 .. _pip: https://pip.pypa.io/en/stable/
-.. _PyPI: https://pypi.org
 .. _video tutorial: https://www.youtube.com/watch?v=JwwlRkLKj7o
-.. _this demo project: https://github.com/pyscaffold/pyscaffold-demo
 .. _editable: https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs
 .. _isolated development environment: https://realpython.com/python-virtual-environments-a-primer/
 .. also good, but sometimes medium can get on the way: https://towardsdatascience.com/virtual-environments-104c62d48c54

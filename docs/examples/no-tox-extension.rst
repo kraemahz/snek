@@ -3,4 +3,4 @@
 NoTox Extension
 ===============
 
-.. literalinclude:: ../../src/pyscaffold/extensions/no_tox.py
+.. literalinclude:: ../../src/snek/extensions/no_tox.py

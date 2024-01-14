@@ -20,11 +20,11 @@ from shutil import copyfile
 
 import pytest
 
-from pyscaffold import shell
-from pyscaffold.cli import main as putup
-from pyscaffold.extensions import venv
-from pyscaffold.file_system import chdir
-from pyscaffold.shell import git
+from snek import shell
+from snek.cli import main as putup
+from snek.extensions import venv
+from snek.file_system import chdir
+from snek.shell import git
 
 __location__ = Path(__file__).parent
 

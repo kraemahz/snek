@@ -10,7 +10,7 @@ from pprint import pformat
 
 import pytest
 
-from pyscaffold import shell
+from snek import shell
 
 from .helpers import uniqstr
 
@@ -141,10 +141,10 @@ def test_edit(tmpfolder, monkeypatch):
     # Then `shell.edit` should be able to manipulate it
     monkeypatch.delenv("VISUAL", raising=False)
     monkeypatch.setenv("EDITOR", vi)
-    shell.edit(file, "-c", ":%s/World/PyScaffold/g", "-c", ":wq")
+    shell.edit(file, "-c", ":%s/World/Snek/g", "-c", ":wq")
     # ^ a bit of vim scripting so it does not wait for the user to type
 
-    assert file.read_text("utf-8").strip() == "Hello PyScaffold"
+    assert file.read_text("utf-8").strip() == "Hello Snek"
 
 
 def test_join():

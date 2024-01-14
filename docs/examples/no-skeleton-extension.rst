@@ -5,4 +5,4 @@
 No Skeleton Extension
 =====================
 
-.. literalinclude:: ../../src/pyscaffold/extensions/no_skeleton.py
+.. literalinclude:: ../../src/snek/extensions/no_skeleton.py

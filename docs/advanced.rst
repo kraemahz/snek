@@ -6,6 +6,6 @@ Advanced Usage & Features
    :maxdepth: 1
 
    Dependency Management <dependencies>
-   Migrating to PyScaffold <migration>
+   Migrating to Snek <migration>
    Updating your Project's Scaffold <updating>
-   Extending PyScaffold <extensions>
+   Extending Snek <extensions>

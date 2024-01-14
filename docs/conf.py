@@ -34,7 +34,7 @@ except ImportError:
     from sphinx import apidoc
 
 output_dir = os.path.join(__location__, "api")
-module_dir = os.path.join(__location__, "../src/pyscaffold")
+module_dir = os.path.join(__location__, "../src/snek")
 try:
     shutil.rmtree(output_dir)
 except FileNotFoundError:
@@ -96,9 +96,9 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "PyScaffold"
-copyright = "PyScaffold Contributors"
-repository = "https://github.com/pyscaffold/pyscaffold/"
+project = "Snek"
+copyright = "Snek Contributors"
+repository = "https://github.com/kraemahz/snek/"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -109,7 +109,7 @@ repository = "https://github.com/pyscaffold/pyscaffold/"
 # If you don’t need the separation provided between version and release,
 # just set them both to the same value.
 try:
-    from pyscaffold import __version__ as version
+    from snek import __version__ as version
 except ImportError:
     version = ""
 
@@ -207,7 +207,7 @@ html_favicon = "gfx/logo.ico"
 html_static_path = ["_static"]
 
 html_css_files = [
-    "pyscaffold-custom.css",  # Avoid name clashes with the theme
+    "snek-custom.css",  # Avoid name clashes with the theme
 ]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
@@ -252,7 +252,7 @@ html_show_sphinx = False
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "pyscaffold-doc"
+htmlhelp_basename = "snek-doc"
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -272,8 +272,8 @@ latex_documents = [
     (
         "index",
         "user_guide.tex",
-        "PyScaffold Documentation",
-        "PyScaffold Contributors",
+        "Snek Documentation",
+        "Snek Contributors",
         "manual",
     )
 ]

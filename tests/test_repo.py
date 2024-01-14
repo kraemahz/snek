@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 
-from pyscaffold import actions, api, cli, repo, shell, structure, toml
-from pyscaffold.file_system import chdir, move, rm_rf
+from snek import actions, api, cli, repo, shell, structure, toml
+from snek.file_system import chdir, move, rm_rf
 
 
 def test_init_commit_repo(tmpfolder):

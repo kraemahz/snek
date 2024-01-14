@@ -2,9 +2,9 @@
 import sys
 from os.path import exists as path_exists
 
-from pyscaffold.api import create_project
-from pyscaffold.cli import run
-from pyscaffold.extensions.github_actions import GithubActions
+from snek.api import create_project
+from snek.cli import run
+from snek.extensions.github_actions import GithubActions
 
 
 def test_create_project_with_github_actions(tmpfolder):
@@ -31,9 +31,9 @@ def test_create_project_without_github_actions(tmpfolder):
 
 def test_cli_with_github_actions(tmpfolder):
     # Given the command line with the GithubActions option,
-    sys.argv = ["pyscaffold", "--github-actions", "proj"]
+    sys.argv = ["snek", "--github-actions", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then files from GithubActions and other extensions automatically added should
@@ -45,9 +45,9 @@ def test_cli_with_github_actions(tmpfolder):
 
 def test_cli_with_github_actions_and_pretend(tmpfolder):
     # Given the command line with the GithubActions and pretend options
-    sys.argv = ["pyscaffold", "--pretend", "--github-actions", "proj"]
+    sys.argv = ["snek", "--pretend", "--github-actions", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then GithubActions files should not exist
@@ -58,9 +58,9 @@ def test_cli_with_github_actions_and_pretend(tmpfolder):
 
 def test_cli_without_github_actions(tmpfolder):
     # Given the command line without the GithubActions option,
-    sys.argv = ["pyscaffold", "proj"]
+    sys.argv = ["snek", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then GithubActions files should not exist

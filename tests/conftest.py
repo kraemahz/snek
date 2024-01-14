@@ -101,7 +101,7 @@ def fake_config_dir(request, tmp_path, monkeypatch):
         return
 
     confdir = Path(mkdtemp(prefix="conf", dir=str(tmp_path)))
-    monkeypatch.setattr("pyscaffold.info.config_dir", lambda *_, **__: confdir)
+    monkeypatch.setattr("snek.info.config_dir", lambda *_, **__: confdir)
     yield confdir
     rmpath(confdir)
 
@@ -129,25 +129,25 @@ def venv(tmp_path, fake_home, fake_xdg_config_home):
 
 @pytest.fixture
 def existing_venv(venv):
-    """Alias of ``venv`` to avoid clashes with ``pyscaffold.extensions.venv``"""
+    """Alias of ``venv`` to avoid clashes with ``snek.extensions.venv``"""
     return venv
 
 
 @pytest.fixture
-def pyscaffold():
-    return __import__("pyscaffold")
+def snek():
+    return __import__("snek")
 
 
 @pytest.fixture
 def real_isatty():
-    pyscaffold = __import__("pyscaffold", globals(), locals(), ["termui"])
-    return pyscaffold.termui.isatty
+    snek = __import__("snek", globals(), locals(), ["termui"])
+    return snek.termui.isatty
 
 
 @pytest.fixture
 def logger(monkeypatch):
-    pyscaffold = __import__("pyscaffold", globals(), locals(), ["log"])
-    logger_obj = pyscaffold.log.logger
+    snek = __import__("snek", globals(), locals(), ["log"])
+    logger_obj = snek.log.logger
     monkeypatch.setattr(logger_obj, "propagate", True)  # <- needed for caplog
     yield logger_obj
 
@@ -165,8 +165,8 @@ def isolated_logger(request, logger, monkeypatch):
     # makes very difficult to build things on top of the logging system without
     # using the same global approach.
     # For simplicity, to make things easier to extension developers and because
-    # PyScaffold not really uses multiple threads, this is the case in
-    # `pyscaffold.log`.
+    # Snek not really uses multiple threads, this is the case in
+    # `snek.log`.
     # On the other hand, shared state and streams can make the testing
     # environment a real pain, since we are messing with everything all the
     # time, specially when running tests in parallel (so we not guarantee the
@@ -200,7 +200,7 @@ def isolated_logger(request, logger, monkeypatch):
 
     # Be lazy to import modules due to coverage warnings
     # (see @FlorianWilhelm comments on #174)
-    from pyscaffold.log import ReportFormatter
+    from snek.log import ReportFormatter
 
     monkeypatch.setattr(logger, "propagate", True)
     monkeypatch.setattr(logger, "nesting", 0)
@@ -239,8 +239,8 @@ def git_mock(monkeypatch, logger):
     def _is_git_repo(folder):
         return Path(folder, ".git").is_dir()
 
-    monkeypatch.setattr("pyscaffold.shell.git", _git)
-    monkeypatch.setattr("pyscaffold.repo.is_git_repo", _is_git_repo)
+    monkeypatch.setattr("snek.shell.git", _git)
+    monkeypatch.setattr("snek.repo.is_git_repo", _is_git_repo)
 
     yield _git
 
@@ -250,7 +250,7 @@ def nogit_mock(monkeypatch):
     def raise_error(*_):
         raise command_exception("No git mock!")
 
-    monkeypatch.setattr("pyscaffold.shell.git", raise_error)
+    monkeypatch.setattr("snek.shell.git", raise_error)
     yield
 
 
@@ -258,10 +258,10 @@ def nogit_mock(monkeypatch):
 def nogit_cmd_mock(monkeypatch):
     # With this fixture we still allow all the code paths in `get_git_cmd` to be
     # traversed during tests, so we improve the chances of catching errors.
-    monkeypatch.setattr("pyscaffold.shell._GIT_CMD", "git-cmd.not-installed")
-    monkeypatch.setattr("pyscaffold.shell._GIT_CMD_WIN", "git-cmd.not-installed.exe")
+    monkeypatch.setattr("snek.shell._GIT_CMD", "git-cmd.not-installed")
+    monkeypatch.setattr("snek.shell._GIT_CMD_WIN", "git-cmd.not-installed.exe")
 
-    from pyscaffold import shell
+    from snek import shell
 
     shell.get_git_cmd.cache_clear()  # force reloading _GIT_CMD
     yield
@@ -274,7 +274,7 @@ def noconfgit_mock(monkeypatch):
         if "config" in argv:
             raise command_exception("No git mock!")
 
-    monkeypatch.setattr("pyscaffold.shell.git", raise_error)
+    monkeypatch.setattr("snek.shell.git", raise_error)
     yield
 
 
@@ -283,7 +283,7 @@ def nodjango_admin_mock(monkeypatch):
     def raise_error(*_):
         raise command_exception("No django_admin mock!")
 
-    monkeypatch.setattr("pyscaffold.shell.django_admin", raise_error)
+    monkeypatch.setattr("snek.shell.django_admin", raise_error)
     yield
 
 
@@ -294,17 +294,17 @@ def nosphinx_mock():
 
 
 @pytest.fixture
-def version_raises_exception(monkeypatch, pyscaffold):
+def version_raises_exception(monkeypatch, snek):
     def raise_exeception(name):
         raise metadata.PackageNotFoundError("No version mock")
 
     monkeypatch.setattr(metadata, "version", raise_exeception)
-    reload(pyscaffold)
+    reload(snek)
     try:
         yield
     finally:
         monkeypatch.undo()
-        reload(pyscaffold)
+        reload(snek)
 
 
 @pytest.fixture(autouse=True)
@@ -315,13 +315,13 @@ def no_isatty(monkeypatch, real_isatty):
 
     # Avoid ansi codes in tests, since capture fixtures seems to
     # emulate stdout and stdin behavior (including isatty method)
-    monkeypatch.setattr("pyscaffold.termui.isatty", lambda *_: False)
+    monkeypatch.setattr("snek.termui.isatty", lambda *_: False)
     yield
 
 
 @pytest.fixture
 def orig_isatty(monkeypatch, real_isatty):
-    monkeypatch.setattr("pyscaffold.termui.isatty", real_isatty)
+    monkeypatch.setattr("snek.termui.isatty", real_isatty)
     yield real_isatty
 
 

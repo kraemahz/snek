@@ -15,4 +15,4 @@ def pre_commit():
 
 @pytest.fixture
 def putup():
-    return find_package_bin("pyscaffold.cli", "putup")
+    return find_package_bin("snek.cli", "putup")

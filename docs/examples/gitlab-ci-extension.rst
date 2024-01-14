@@ -3,4 +3,4 @@
 GitLab-CI Extension
 ===================
 
-.. literalinclude:: ../../src/pyscaffold/extensions/gitlab_ci.py
+.. literalinclude:: ../../src/snek/extensions/gitlab_ci.py

@@ -5,16 +5,16 @@ from textwrap import dedent
 
 import pytest
 
-from pyscaffold import cli, info, operations, structure, templates
-from pyscaffold.actions import get_default_options
-from pyscaffold.api import NO_CONFIG, bootstrap_options, create_project
-from pyscaffold.exceptions import (
+from snek import cli, info, operations, structure, templates
+from snek.actions import get_default_options
+from snek.api import NO_CONFIG, bootstrap_options, create_project
+from snek.exceptions import (
     DirectoryAlreadyExists,
     InvalidIdentifier,
-    NoPyScaffoldProject,
+    NoSnekProject,
 )
-from pyscaffold.extensions import Extension
-from pyscaffold.file_system import chdir
+from snek.extensions import Extension
+from snek.file_system import chdir
 
 
 def create_extension(*hooks):
@@ -198,7 +198,7 @@ def test_pretend_when_updating_does_not_make_changes(tmpfolder):
 
 
 def test_bootstrap_opts_raises_when_updating_non_existing():
-    with pytest.raises(NoPyScaffoldProject):
+    with pytest.raises(NoSnekProject):
         bootstrap_options(project_path="non-existent", update=True)
 
 
@@ -234,7 +234,7 @@ DEFAULT_CONFIG = """\
 author = John Doe
 author-email = john.joe@gmail.com
 
-[pyscaffold]
+[snek]
 extensions =
     namespace
     cirrus
@@ -285,10 +285,10 @@ def test_bootstrap_with_no_config(tmpfolder, with_default_config):
 @pytest.fixture
 def macos_config_dir(tmp_path, monkeypatch, fake_config_dir):
     with TemporaryDirectory(prefix="config", dir=str(tmp_path)) as tmp:
-        confdir = Path(tmp, "Library/Application Support/pyscaffold")
+        confdir = Path(tmp, "Library/Application Support/snek")
 
     _ = fake_config_dir  # included for reproducible ordering of fixture evaluation
-    monkeypatch.setattr("pyscaffold.info.config_dir", lambda *_, **__: confdir)
+    monkeypatch.setattr("snek.info.config_dir", lambda *_, **__: confdir)
     yield confdir
 
 
@@ -346,7 +346,7 @@ def with_existing_proj_config(tmp_path):
             url = www.example.com
             license = gpl3
 
-            [pyscaffold]
+            [snek]
             package = super_proj
             """
         )

@@ -2,11 +2,11 @@ from pathlib import Path
 
 import pytest
 
-from pyscaffold.actions import discover, get_default_options
-from pyscaffold.actions import init_git as orig_init_git
-from pyscaffold.actions import register, unregister, verify_project_dir
-from pyscaffold.api import bootstrap_options
-from pyscaffold.exceptions import (
+from snek.actions import discover, get_default_options
+from snek.actions import init_git as orig_init_git
+from snek.actions import register, unregister, verify_project_dir
+from snek.api import bootstrap_options
+from snek.exceptions import (
     ActionNotFound,
     DirectoryAlreadyExists,
     DirectoryDoesNotExist,
@@ -14,7 +14,7 @@ from pyscaffold.exceptions import (
     GitNotInstalled,
     NestedRepository,
 )
-from pyscaffold.structure import define_structure
+from snek.structure import define_structure
 
 
 def test_discover():
@@ -115,7 +115,7 @@ def test_register_with_qualified_name():
     pipeline = [orig_init_git, init_git]
     # When a new action is registered using the "qualified" name
     # (module+function) as position reference,
-    position = "pyscaffold.actions:init_git"
+    position = "snek.actions:init_git"
     pipeline = register(pipeline, custom_action, after=position)
     # Then this action should be correctly placed
     assert pipeline == [orig_init_git, custom_action, init_git]
@@ -154,7 +154,7 @@ def test_unregister_with_qualified_name():
     # Given an action list with name conflict,
     pipeline = [custom_action, init_git, orig_init_git]
     # When an action is unregistered by "qualified" name,
-    pipeline = unregister(pipeline, "pyscaffold.actions:init_git")
+    pipeline = unregister(pipeline, "snek.actions:init_git")
     # Then the correct match should be removed
     assert pipeline == [custom_action, init_git]
 

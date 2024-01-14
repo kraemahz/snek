@@ -2,10 +2,10 @@
 extensions API, and therefore will result in errors when imported
 """
 
-from pyscaffold.api import Extension, helpers
+from snek.api import Extension, helpers
 
 # The module helpers was removed in version 4
-# The class Extension was moved to the pyscaffold.extensions module
+# The class Extension was moved to the snek.extensions module
 
 
 class FakeExtension(Extension):

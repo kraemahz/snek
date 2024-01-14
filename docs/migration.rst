@@ -1,10 +1,10 @@
 .. _migration:
 
 =======================
-Migration to PyScaffold
+Migration to Snek
 =======================
 
-Migrating your existing project to PyScaffold is in most cases quite easy and requires
+Migrating your existing project to Snek is in most cases quite easy and requires
 only a few steps. We assume your project resides in the Git repository ``my_project``
 and includes a package directory ``my_package`` with your Python modules.
 
@@ -36,7 +36,7 @@ Let's start:
    by passing parameters to ``setup(...)`` need to be moved to ``setup.cfg``. You will figure
    that out quite easily by putting your old ``setup.py`` and the new ``setup.cfg`` template side by side.
    Checkout the `documentation of setuptools`_ for more information about this conversion.
-   In most cases you will not need to make changes to the new ``setup.py`` file provided by PyScaffold.
+   In most cases you will not need to make changes to the new ``setup.py`` file provided by Snek.
    The only exceptions are if your project uses compiled resources, e.g. Cython.
 
 #. If you have any pre-existing `git tag`_ in your repository history, you will

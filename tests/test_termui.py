@@ -3,7 +3,7 @@ from io import StringIO
 
 import pytest
 
-from pyscaffold import termui
+from snek import termui
 
 
 @pytest.fixture(scope="module")

@@ -1,5 +1,5 @@
 ============
-Contributors
+Original PyScaffold Contributors
 ============
 
 * Florian Wilhelm

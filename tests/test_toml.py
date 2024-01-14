@@ -1,7 +1,7 @@
 from collections.abc import MutableMapping
 from textwrap import dedent
 
-from pyscaffold import toml
+from snek import toml
 
 
 def test_dumps():

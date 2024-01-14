@@ -4,9 +4,9 @@ from pathlib import Path
 
 import pytest
 
-from pyscaffold import actions, api
-from pyscaffold import dependencies as deps
-from pyscaffold import info, templates
+from snek import actions, api
+from snek import dependencies as deps
+from snek import info, templates
 
 
 def test_get_template():
@@ -79,8 +79,8 @@ def test_setup_cfg():
     install_requires = deps.split(setup_cfg["options"]["install_requires"])
     for dep in reqs:
         assert dep in install_requires
-    # Assert PyScaffold section
-    assert setup_cfg["pyscaffold"].get("version")
+    # Assert Snek section
+    assert setup_cfg["snek"].get("version")
 
 
 def test_setup_cfg_2line_description(tmpfolder):

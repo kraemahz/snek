@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from pyscaffold.api import create_project
-from pyscaffold.cli import run
-from pyscaffold.extensions.no_pyproject import NoPyProject
+from snek.api import create_project
+from snek.cli import run
+from snek.extensions.no_pyproject import NoPyProject
 
 
 def test_create_project_wit_no_pyproject(tmpfolder):
@@ -33,7 +33,7 @@ def test_create_project_without_no_pyproject(tmpfolder):
 
 def test_cli_with_no_pyproject(tmpfolder):
     # Given the command line with the no-pyproject option,
-    # when pyscaffold runs,
+    # when snek runs,
     run(["--no-pyproject", "proj"])
 
     # then file should not exist
@@ -42,7 +42,7 @@ def test_cli_with_no_pyproject(tmpfolder):
 
 def test_cli_with_no_pyproject_and_pretend(tmpfolder):
     # Given the command line with the no-pyproject and pretend options,
-    # when pyscaffold runs,
+    # when snek runs,
     run(["--pretend", "--no-pyproject", "proj"])
 
     # then file should not exist (or the project itself)
@@ -52,7 +52,7 @@ def test_cli_with_no_pyproject_and_pretend(tmpfolder):
 
 def test_cli_without_no_pyproject(tmpfolder):
     # Given the command line without the no-pyproject option,
-    # when pyscaffold runs,
+    # when snek runs,
     run(["--no-pyproject", "proj"])
 
     # then file should not exist

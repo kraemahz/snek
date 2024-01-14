@@ -5,4 +5,4 @@
 Namespace Extension
 ===================
 
-.. literalinclude:: ../../src/pyscaffold/extensions/namespace.py
+.. literalinclude:: ../../src/snek/extensions/namespace.py

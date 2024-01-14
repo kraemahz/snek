@@ -19,7 +19,7 @@ import pytest
 skip_on_conda_build = pytest.mark.skipif(
     os.getenv("CONDA_BUILD"),
     reason="conda build does not run inside virtualenv/tox and "
-    "it does not have PyScaffold's source code available when running tests",
+    "it does not have Snek's source code available when running tests",
 )
 
 
@@ -103,7 +103,7 @@ def command_exception(content):
     # Be lazy to import modules, so coverage has time to setup all the
     # required "probes"
     # (see @FlorianWilhelm comments on #174)
-    from pyscaffold.exceptions import ShellCommandException
+    from snek.exceptions import ShellCommandException
 
     return ShellCommandException(content)
 

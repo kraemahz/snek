@@ -1,4 +1,4 @@
-from pyscaffold import extensions
+from snek import extensions
 
 
 def make_extension(name, **kwargs):

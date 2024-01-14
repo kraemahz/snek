@@ -5,8 +5,8 @@ from subprocess import CalledProcessError
 
 import pytest
 
-from pyscaffold.file_system import chdir
-from pyscaffold.info import read_pyproject
+from snek.file_system import chdir
+from snek.info import read_pyproject
 
 from ..helpers import skip_on_conda_build
 from .helpers import run, run_common_tasks
@@ -33,7 +33,7 @@ def cwd(tmpdir):
 def test_ensure_inside_test_venv(putup):
     # This is a METATEST
     # Here we ensure `putup` is installed inside tox so we know we are testing the
-    # correct version of pyscaffold and not one the devs installed to use in other
+    # correct version of snek and not one the devs installed to use in other
     # projects
     assert ".tox" in putup
 
@@ -42,12 +42,12 @@ BUILD_DEPS = ["setuptools_scm"]
 
 
 def test_putup(cwd, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # when we run putup
     run(f"{putup} myproj")
     # then no error should be raised when running the common tasks
     with cwd.join("myproj").as_cwd():
-        # then the new version of PyScaffold should produce packages with
+        # then the new version of Snek should produce packages with
         # the correct build deps
         pyproject_toml = read_pyproject(".")
         stored_deps = " ".join(pyproject_toml["build-system"]["requires"])
@@ -58,7 +58,7 @@ def test_putup(cwd, putup):
 
 
 def test_putup_with_update(cwd, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # and a project already created
     run(f"{putup} myproj")
     # when we run putup with the update flag
@@ -80,7 +80,7 @@ def test_putup_with_update_dirty_workspace(cwd, putup):
 
 
 def test_putup_with_update_and_namespace(cwd, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # and a project already created
     run(f"{putup} --namespace myns --package myproj myns-myproj")
     # when we run putup with the update flag
@@ -92,7 +92,7 @@ def test_putup_with_update_and_namespace(cwd, putup):
 
 
 def test_differing_package_name(cwd, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # when we run putup
     run(f"{putup} my-cool-proj -p myproj")
     # then the folder structure should respect the names
@@ -104,7 +104,7 @@ def test_differing_package_name(cwd, putup):
 
 
 def test_update(putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # and a project already created
     run(f"{putup} myproj")
     assert not Path("myproj/.cirrus.yml").exists()
@@ -115,7 +115,7 @@ def test_update(putup):
 
 
 def test_force(cwd, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # and a project already created
     run(f"{putup} myproj")
     assert not Path("myproj/.cirrus.yml").exists()
@@ -129,7 +129,7 @@ def test_force(cwd, putup):
 
 
 def test_tox_docs(cwd, tox, putup):
-    # Given pyscaffold project is created
+    # Given snek project is created
     run(f"{putup} myproj")
     with cwd.join("myproj").as_cwd():
         # when we can call tox -e docs
@@ -140,7 +140,7 @@ def test_tox_docs(cwd, tox, putup):
 
 
 def test_tox_doctests(cwd, tox, putup):
-    # Given pyscaffold project is created
+    # Given snek project is created
     run(f"{putup} myproj")
     with cwd.join("myproj").as_cwd():
         # when we can call tox
@@ -149,7 +149,7 @@ def test_tox_doctests(cwd, tox, putup):
 
 
 def test_tox_tests(cwd, tox, putup):
-    # Given pyscaffold project is created
+    # Given snek project is created
     run(f"{putup} myproj")
     with cwd.join("myproj").as_cwd():
         # when we can call tox
@@ -158,7 +158,7 @@ def test_tox_tests(cwd, tox, putup):
 
 
 def test_tox_build(cwd, tox, putup):
-    # Given pyscaffold project is created
+    # Given snek project is created
     run(f"{putup} myproj")
     with cwd.join("myproj").as_cwd():
         # when we can call tox
@@ -185,7 +185,7 @@ def test_tox_build(cwd, tox, putup):
     ),
 )
 def test_extensions(cwd, putup, extension, kwargs, filename):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # when we call putup with extensions
     name = "myproj-" + extension
     run(f"{putup} -vv --{extension} {name}")
@@ -197,7 +197,7 @@ def test_extensions(cwd, putup, extension, kwargs, filename):
 
 
 def test_no_skeleton(cwd, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # when we call putup with --no-skeleton
     run(f"{putup} myproj --no-skeleton")
     with cwd.join("myproj").as_cwd():
@@ -209,7 +209,7 @@ def test_no_skeleton(cwd, putup):
 
 
 def test_namespace(cwd, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # when we call putup with --namespace
     run(f"{putup} nested_project -p my_package --namespace com.blue_yonder")
     # then a very complicated module hierarchy should exist
@@ -220,7 +220,7 @@ def test_namespace(cwd, putup):
         run_common_tasks()
         # sphinx should be able to document modules that use PEP 420
         assert Path("docs/api/com.blue_yonder.my_package.rst").exists()
-    # and pyscaffold should remember the options during an update
+    # and snek should remember the options during an update
     run(f"{putup} nested_project --update -vv")
     assert Path(path).exists()
     assert not Path("nested_project/src/nested_project").exists()
@@ -228,7 +228,7 @@ def test_namespace(cwd, putup):
 
 
 def test_namespace_no_skeleton(cwd, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # when we call putup with --namespace and --no-skeleton
     run(
         f"{putup} nested_project --no-skeleton "
@@ -243,7 +243,7 @@ def test_namespace_no_skeleton(cwd, putup):
 
 @pytest.mark.skipif(sys.version_info < (3, 7), reason="pre-commit requires Python 3.7+")
 def test_new_project_does_not_fail_pre_commit(cwd, pre_commit, putup):
-    # Given pyscaffold is installed,
+    # Given snek is installed,
     # when we call putup with extensions and pre-commit
     name = "my_project"
     run(

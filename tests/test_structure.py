@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from pyscaffold import actions, api, cli, operations, structure
+from snek import actions, api, cli, operations, structure
 
 NO_OVERWRITE = operations.no_overwrite()
 SKIP_ON_UPDATE = operations.skip_on_update()

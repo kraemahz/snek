@@ -2,9 +2,9 @@
 import sys
 from os.path import exists as path_exists
 
-from pyscaffold.api import create_project
-from pyscaffold.cli import run
-from pyscaffold.extensions.gitlab_ci import GitLab
+from snek.api import create_project
+from snek.cli import run
+from snek.extensions.gitlab_ci import GitLab
 
 
 def test_create_project_with_gitlab_ci(tmpfolder):
@@ -31,9 +31,9 @@ def test_create_project_without_gitlab_ci(tmpfolder):
 
 def test_cli_with_gitlab_ci(tmpfolder):
     # Given the command line with the GitLab option,
-    sys.argv = ["pyscaffold", "--gitlab", "proj"]
+    sys.argv = ["snek", "--gitlab", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then files from GitLab and other extensions automatically added should
@@ -45,9 +45,9 @@ def test_cli_with_gitlab_ci(tmpfolder):
 
 def test_cli_with_gitlab_ci_and_pretend(tmpfolder):
     # Given the command line with the GitLab and pretend options
-    sys.argv = ["pyscaffold", "--pretend", "--gitlab", "proj"]
+    sys.argv = ["snek", "--pretend", "--gitlab", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then GitLab files should not exist
@@ -58,9 +58,9 @@ def test_cli_with_gitlab_ci_and_pretend(tmpfolder):
 
 def test_cli_without_gitlab_ci(tmpfolder):
     # Given the command line without the GitLab option,
-    sys.argv = ["pyscaffold", "proj"]
+    sys.argv = ["snek", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then GitLab files should not exist

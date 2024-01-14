@@ -2,9 +2,9 @@
 import sys
 from pathlib import Path
 
-from pyscaffold.api import create_project
-from pyscaffold.cli import run
-from pyscaffold.extensions import no_skeleton
+from snek.api import create_project
+from snek.cli import run
+from snek.extensions import no_skeleton
 
 
 def test_create_project_wit_no_skeleton(tmpfolder):
@@ -33,9 +33,9 @@ def test_create_project_without_no_skeleton(tmpfolder):
 
 def test_cli_with_no_skeleton(tmpfolder):
     # Given the command line with the no-skeleton option,
-    sys.argv = ["pyscaffold", "--no-skeleton", "proj"]
+    sys.argv = ["snek", "--no-skeleton", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then skeleton file should not exist
@@ -45,9 +45,9 @@ def test_cli_with_no_skeleton(tmpfolder):
 
 def test_cli_with_no_skeleton_and_pretend(tmpfolder):
     # Given the command line with the no-skeleton and pretend options,
-    sys.argv = ["pyscaffold", "--pretend", "--no-skeleton", "proj"]
+    sys.argv = ["snek", "--pretend", "--no-skeleton", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then skeleton file should not exist (or the project itself)
@@ -57,9 +57,9 @@ def test_cli_with_no_skeleton_and_pretend(tmpfolder):
 
 def test_cli_without_no_skeleton(tmpfolder):
     # Given the command line without the no-skeleton option,
-    sys.argv = ["pyscaffold", "proj"]
+    sys.argv = ["snek", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then skeleton file should exist

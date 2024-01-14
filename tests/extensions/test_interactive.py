@@ -2,8 +2,8 @@ import argparse
 from textwrap import dedent
 from unittest.mock import Mock
 
-from pyscaffold import api, cli
-from pyscaffold.extensions import config, interactive
+from snek import api, cli
+from snek.extensions import config, interactive
 
 from ..helpers import ArgumentParser
 
@@ -171,7 +171,7 @@ def test_all_examples():
 
 def test_no_empty_example():
     # As reported on #333, the config flag was generating an empty example when the user
-    # does not have a "{$XDG_CONFIG_HOME:-$HOME/.config}/pyscaffold/default.cfg" file,
+    # does not have a "{$XDG_CONFIG_HOME:-$HOME/.config}/snek/default.cfg" file,
     # which in turn generated the following error:
     #
     #    putup: error: argument --config: expected at least one argument
@@ -310,9 +310,9 @@ def test_cli(monkeypatch, tmpfolder):
     # --namespace myns
     # ^  test commented options
     """
-    fake_edit = tmpfolder / "pyscaffold.args"
+    fake_edit = tmpfolder / "snek.args"
     fake_edit.write_text(dedent(fake_content), "utf-8")
-    monkeypatch.setattr("pyscaffold.shell.edit", lambda *_, **__: fake_edit)
+    monkeypatch.setattr("snek.shell.edit", lambda *_, **__: fake_edit)
 
     # Then, the options in the file should take place, not the ones given in the cli
     args = [

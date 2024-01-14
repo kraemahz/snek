@@ -3,4 +3,4 @@
 Cirrus Extension
 ================
 
-.. literalinclude:: ../../src/pyscaffold/extensions/cirrus.py
+.. literalinclude:: ../../src/snek/extensions/cirrus.py

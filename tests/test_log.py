@@ -5,8 +5,8 @@ from os.path import abspath
 
 import pytest
 
-from pyscaffold.file_system import localize_path as lp
-from pyscaffold.log import (
+from snek.file_system import localize_path as lp
+from snek.log import (
     DEFAULT_LOGGER,
     ColoredReportFormatter,
     ReportFormatter,
@@ -24,7 +24,7 @@ from .log_helpers import (
 )
 
 # When adding tests to this file, please have in mind that the global shared
-# logging strategy followed by Python and PyScaffold can lead to pain while
+# logging strategy followed by Python and Snek can lead to pain while
 # testing. Try to create a new ReportLogger with a brand new underlying native
 # Logger object as much as possible (see test_pass_handler for an example), and
 # just deactivate the `isolated_logger` fixture with the `original_logger` mark
@@ -85,7 +85,7 @@ def test_log_adapter_respects_log_level(caplog):
     # should be used. However, this is the one test where we use
     # `logging.getLogger(DEFAULT_LOGGER).setLevel` to test the
     # behavior reported in the documentation. The wrapper object
-    # `pyscaffold.log.logger` should respect the log level if the underlying
+    # `snek.log.logger` should respect the log level if the underlying
     # python logger object have changed.
     caplog.set_level(logging.NOTSET)
 
@@ -203,7 +203,7 @@ def test_copy(caplog):
 def test_reconfigure(monkeypatch, caplog, uniq_raw_logger):
     # Given an environment that supports color, and a restrictive logger
     caplog.set_level(logging.NOTSET)
-    monkeypatch.setattr("pyscaffold.termui.supports_color", lambda *_: True)
+    monkeypatch.setattr("snek.termui.supports_color", lambda *_: True)
     formatter = ReportFormatter()
     new_logger = ReportLogger(uniq_raw_logger, formatter=formatter, propagate=True)
     new_logger.level = logging.INFO

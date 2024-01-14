@@ -4,9 +4,9 @@
 Updating from Previous Versions
 ===============================
 
-When updating a project generated with the same major version of PyScaffold
+When updating a project generated with the same major version of Snek
 [#up1]_, running ``putup --update`` should be enough to get you going.
-However updating from previous major versions of PyScaffold will probably
+However updating from previous major versions of Snek will probably
 require some manual adjustments. The following sections describe how to update
 from one major version into the following one.
 
@@ -17,13 +17,13 @@ from one major version into the following one.
    corrections.
 
 
-Updates from PyScaffold 2 to PyScaffold 3
+Updates from Snek 2 to Snek 3
 -----------------------------------------
 
-Since the overall structure of a project set up with PyScaffold 2 differs quite
-much from a project generated with PyScaffold 3 it is not possible to just use
+Since the overall structure of a project set up with Snek 2 differs quite
+much from a project generated with Snek 3 it is not possible to just use
 the ``--update`` parameter. Still with some manual efforts an update from
-a scaffold generated with PyScaffold 2 to PyScaffold 3's scaffold is quite easy.
+a scaffold generated with Snek 2 to Snek 3's scaffold is quite easy.
 Assume the name of our project is ``old_project`` with a package called
 ``old_package`` and no namespaces then just:
 
@@ -38,10 +38,10 @@ Assume the name of our project is ``old_project`` with a package called
 6) check if ``python setup.py test sdist`` works and commit your changes.
 
 
-Updates from PyScaffold 3 to PyScaffold 4
+Updates from Snek 3 to Snek 4
 -----------------------------------------
 
-**Most of the time, updating from PyScaffold 3 should be completely automatic**.
+**Most of the time, updating from Snek 3 should be completely automatic**.
 However, since in version 4 we have adopted Python's new standards for
 packaging (:pep:`517`/:pep:`518`), you might find the new build process incompatible.
 
@@ -55,12 +55,12 @@ root.
 You will need, though, to manually follow a few extra steps to make sure
 everything works:
 
-1) Remove PyScaffold from your build dependencies (``setup_requires`` in ``setup.cfg``)
+1) Remove Snek from your build dependencies (``setup_requires`` in ``setup.cfg``)
    and add `setuptools-scm`_.
 
    .. note::
       The use of ``setup_requires`` is discouraged. When updating to v4
-      PyScaffold will remove this field automatically and transfer the
+      Snek will remove this field automatically and transfer the
       dependencies to the ``pyproject.toml :: build-system.requires`` field,
       which means you may need to manually place them back when deleting
       ``pyproject.toml``.
@@ -76,16 +76,16 @@ everything works:
    ``isort`` and ``coverage`` configurations in your ``pyproject.toml``, you
    might want to rewrite them in the |isortcfg|_ and |coveragerc|_ files respectively.
 
-3) Please open an issue_ with PyScaffold so we understand with kind of backward
+3) Please open an issue with Snek so we understand with kind of backward
    incompatibilities :pep:`517` and :pep:`518` might be causing and try to help.
    Similarly you might also consider opening an issue with setuptools_.
 
 .. warning::
    For the time being you can use the **transitional** ``--no-pyproject``
    option, when running ``putup``, but have in mind that this option will
-   be removed in future versions of PyScaffold.
+   be removed in future versions of Snek.
 
-PyScaffold 4 also adopts the :pep:`420` scheme for implicit namespaces and will
+Snek 4 also adopts the :pep:`420` scheme for implicit namespaces and will
 automatically migrate existing packages. This is incompatible with the
 previously adopted `pkg_resources`_ methodology. **Fortunately, this will not
 affect you if you are not using namespaces**, but in the case you are,
@@ -112,15 +112,15 @@ If using `Sphinx`_ for the documentation, you can also remove the
    Please move these files if necessary to their own separated folders (e.g.
    the ``docs`` folder or a new ``examples`` folder in the root of the
    repository), or revert back to the `pkg_resources`_ implementation. Just
-   have in mind that PyScaffold, considers the ``src`` directory to be
+   have in mind that Snek, considers the ``src`` directory to be
    exclusively dedicated to store files meant to be distributed, and will rely
    on that assumption on its future versions and updates.
 
 
-.. [#up1] PyScaffold uses 3 numbers for its version: ``MAJOR.MINOR.PATCH``
+.. [#up1] Snek uses 3 numbers for its version: ``MAJOR.MINOR.PATCH``
    (when the numbers on the right are missing, just assume them as being 0),
-   so PyScaffold 3.1.2 has the same major version as PyScaffold 3.3.1, but not
-   PyScaffold 4.
+   so Snek 3.1.2 has the same major version as Snek 3.3.1, but not
+   Snek 4.
 
 .. |isortcfg| replace:: *.isort.cfg*
 .. |coveragerc| replace:: *.coveragerc*
@@ -134,5 +134,4 @@ If using `Sphinx`_ for the documentation, you can also remove the
 .. _Sphinx: https://www.sphinx-doc.org/en/master/
 .. _isortcfg: https://pycqa.github.io/isort/docs/configuration/config_files
 .. _coveragerc: https://coverage.readthedocs.io/en/coverage-5.1/config.html
-.. _issue: https://github.com/pyscaffold/pyscaffold/issues
 .. _setuptools: https://github.com/pypa/setuptools/issues

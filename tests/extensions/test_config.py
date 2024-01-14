@@ -4,8 +4,8 @@ from textwrap import dedent
 
 import pytest
 
-from pyscaffold import api, cli, info, templates
-from pyscaffold.extensions import config
+from snek import api, cli, info, templates
+from snek.extensions import config
 
 from ..helpers import ArgumentParser
 from .helpers import make_extension
@@ -39,7 +39,7 @@ def test_no_cli_opts(default_file):
 
     # or config_files will be bootstraped with the
     # default file if it exists
-    default_file.write_text("[pyscaffold]\n")
+    default_file.write_text("[snek]\n")
     opts = api.bootstrap_options(cli_opts)
     assert opts["config_files"] == [default_file]
 
@@ -58,7 +58,7 @@ def test_config_opts(default_file, fake_config_dir):
     files = []
     for j in range(3):
         file = fake_config_dir / f"test{j}.cfg"
-        file.write_text("[pyscaffold]\n")
+        file.write_text("[snek]\n")
         files.append(file)
 
     # --config can be passed with 1 value
@@ -87,7 +87,7 @@ def test_no_config():
 
 def test_no_config_conflict(fake_config_dir):
     file = fake_config_dir / "test_no_config.cfg"
-    file.write_text("[pyscaffold]\n")
+    file.write_text("[snek]\n")
     with pytest.raises(SystemExit):
         parse("--no-config", "--config", str(file))
 
@@ -116,7 +116,7 @@ def test_save_action(default_file):
     parsed = info.project({}, default_file)
     assert all(parsed[k] == v for k, v in opts.items())
     # and the file will contain instructions / references
-    assert "pyscaffold.org" in default_file.read_text()
+    assert "snek.org" in default_file.read_text()
 
 
 def test_save_action_no_config(default_file):
@@ -136,7 +136,7 @@ def existing_config(file):
         author-email = john.joe@fmail.com
         license = gpl3
 
-        [pyscaffold]
+        [snek]
         # Comment
         version = 3.78
         extensions =
@@ -178,7 +178,7 @@ def test_save_action_additional_extensions(default_file):
     config.save({}, {**opts, "save_config": default_file, "extensions": extensions})
     # The old ones are kept and the new ones are added,
     # unless they specify persist=False
-    parsed = info.read_setupcfg(default_file).to_dict()["pyscaffold"]
+    parsed = info.read_setupcfg(default_file).to_dict()["snek"]
     print(default_file.read_text())
     expected = {"namespace", "tox", "cirrus", "my_extension1", "my_extension2"}
     assert templates.parse_extensions(parsed["extensions"]) == expected
@@ -196,10 +196,10 @@ def test_cli_with_save_config(default_file, tmpfolder):
     assert default_file.exists()
     parsed = info.read_setupcfg(default_file).to_dict()
     assert parsed["metadata"]["license"] == "MPL-2.0"
-    assert parsed["pyscaffold"]["namespace"] == "ns"
-    assert "cirrus" in parsed["pyscaffold"]["extensions"]
+    assert parsed["snek"]["namespace"] == "ns"
+    assert "cirrus" in parsed["snek"]["extensions"]
     # and since the config extension has persist = False, it will not be stored
-    assert "config" not in parsed["pyscaffold"]["extensions"]
+    assert "config" not in parsed["snek"]["extensions"]
 
 
 def test_cli_with_save_config_and_pretend(default_file, tmpfolder):

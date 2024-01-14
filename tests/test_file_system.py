@@ -3,7 +3,7 @@ import os
 import re
 import stat
 
-from pyscaffold import file_system as fs
+from snek import file_system as fs
 
 from .helpers import temp_umask, uniqpath, uniqstr
 

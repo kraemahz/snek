@@ -4,11 +4,11 @@ import sys
 from pathlib import Path
 from unittest.mock import Mock
 
-from pyscaffold import shell
-from pyscaffold.api import create_project
-from pyscaffold.cli import run
-from pyscaffold.extensions import pre_commit
-from pyscaffold.templates import get_template
+from snek import shell
+from snek.api import create_project
+from snek.cli import run
+from snek.extensions import pre_commit
+from snek.templates import get_template
 
 
 def assert_in_logs(caplog, *expected):
@@ -61,7 +61,7 @@ def test_install(monkeypatch, caplog):
     caplog.set_level(logging.ERROR)
     exec = Mock(side_effect=shell.ShellCommandException)
     monkeypatch.setattr(shell, "get_command", Mock(return_value=exec))
-    # then PyScaffold should not stop, only log the error.
+    # then Snek should not stop, only log the error.
     pre_commit.install({}, {})
     assert_in_logs(caplog, pre_commit.ERROR_MSG)
 
@@ -120,9 +120,9 @@ def test_create_project_without_pre_commit(tmpfolder):
 
 def test_cli_with_pre_commit(tmpfolder):
     # Given the command line with the pre-commit option,
-    sys.argv = ["pyscaffold", "--pre-commit", "proj"]
+    sys.argv = ["snek", "--pre-commit", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then pre-commit files should exist
@@ -132,9 +132,9 @@ def test_cli_with_pre_commit(tmpfolder):
 
 def test_cli_with_pre_commit_or_pretend(tmpfolder):
     # Given the command line with the pre-commit option and pretend
-    sys.argv = ["pyscaffold", "--pretend", "--pre-commit", "proj"]
+    sys.argv = ["snek", "--pretend", "--pre-commit", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then pre-commit files should not exist (or the project itself)
@@ -144,9 +144,9 @@ def test_cli_with_pre_commit_or_pretend(tmpfolder):
 
 def test_cli_without_pre_commit(tmpfolder):
     # Given the command line without the pre-commit option,
-    sys.argv = ["pyscaffold", "proj"]
+    sys.argv = ["snek", "proj"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then pre-commit files should not exist

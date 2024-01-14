@@ -2,9 +2,9 @@
 import sys
 from pathlib import Path
 
-from pyscaffold.api import create_project
-from pyscaffold.cli import run
-from pyscaffold.extensions.no_tox import NoTox
+from snek.api import create_project
+from snek.cli import run
+from snek.extensions.no_tox import NoTox
 
 
 def test_create_project_with_tox(tmpfolder):
@@ -27,7 +27,7 @@ def test_create_project_without_tox(tmpfolder):
 
 def test_cli_with_tox(tmpfolder):
     # when the project is created with the CLI
-    sys.argv = ["pyscaffold", "proj"]
+    sys.argv = ["snek", "proj"]
     run()
 
     # then tox files should exist
@@ -36,9 +36,9 @@ def test_cli_with_tox(tmpfolder):
 
 def test_cli_without_tox(tmpfolder):
     # Given the command line with --no-tox
-    sys.argv = ["pyscaffold", "proj", "-vv", "--no-tox"]
+    sys.argv = ["snek", "proj", "-vv", "--no-tox"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then tox files should not exist
@@ -47,9 +47,9 @@ def test_cli_without_tox(tmpfolder):
 
 def test_cli_without_tox_but_pretend(tmpfolder):
     # Given the command line with --no-tox and --pretend
-    sys.argv = ["pyscaffold", "proj", "-vv", "--no-tox", "--pretend"]
+    sys.argv = ["snek", "proj", "-vv", "--no-tox", "--pretend"]
 
-    # when pyscaffold runs,
+    # when snek runs,
     run()
 
     # then tox files should not exist (or even the project)

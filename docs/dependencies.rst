@@ -6,7 +6,7 @@ Dependency Management
 
 .. warning::
 
-    *Experimental Feature* - PyScaffold support for `virtual environment`_
+    *Experimental Feature* - Snek support for `virtual environment`_
     management is experimental and might change in the future.
 
 Foundations
@@ -42,10 +42,10 @@ intended to be distributed via PyPI, e.g. command line tools and auxiliary WSGI
 apps/middleware to be mounted inside other domain-centric apps).
 For more information about this topic check `Donald Stufft`_ post.
 
-Since PyScaffold aims the development of Python projects that can be easily
+Since Snek aims the development of Python projects that can be easily
 packaged and distributed using the standard PyPI and ``pip`` flow, we adopt the
 specification of **abstract dependencies** using |install_requires|_. This
-basically means that if PyScaffold generated projects specify dependencies
+basically means that if Snek generated projects specify dependencies
 inside the ``setup.cfg`` file (using general version ranges), everything will
 work as expected.
 
@@ -62,14 +62,14 @@ the same convention as ``install_requires``, however this field is not strictly
 enforced, and ``setuptools`` doesn't really do much to enforce the packages
 listed will be installed before the test suite runs.
 
-PyScaffold's recommendation is to create a ``testing`` field (actually you can
+Snek's recommendation is to create a ``testing`` field (actually you can
 name it whatever you want, but let's be explicit!) inside the
 ``[options.extras_require]`` section of ``setup.cfg``. This way multiple test
 runners can have a centralised configuration and authors can avoid double
 bookkeeping.
 
 If you use ``tox`` (recommended), you can list ``testing`` under the |extras|_ option
-(PyScaffold template for ``tox.ini`` already takes care of this configuration for you).
+(Snek template for ``tox.ini`` already takes care of this configuration for you).
 
 If running ``pytest`` directly, you will have to install those dependencies
 manually, or do a editable install of your package with
@@ -79,7 +79,7 @@ manually, or do a editable install of your package with
     ``tox.ini``, please go ahead and move your test dependencies.
     Every should work just fine :)
 
-.. note:: PyScaffold strongly advocates the use of test runners to guarantee
+.. note:: Snek strongly advocates the use of test runners to guarantee
     your project is correctly packaged/works in isolated environments.
     New projects will ship with a default ``tox.ini`` file that is a good
     starting point, with a few useful tasks. Run ``tox -av`` to list all the
@@ -89,7 +89,7 @@ manually, or do a editable install of your package with
 Basic Virtualenv
 ================
 
-As previously mentioned, PyScaffold will get you covered when specifying the
+As previously mentioned, Snek will get you covered when specifying the
 **abstract** or test dependencies of your package. We provide sensible
 configurations for ``setuptools`` and ``tox`` out-of-the-box.
 In most of the cases this is enough, since developers in the
@@ -99,7 +99,7 @@ could do:
 
 .. code-block:: bash
 
-    $ pip install pyscaffold
+    $ pip install snek
     $ putup myproj
     $ cd myproj
     $ virtualenv .venv
@@ -116,8 +116,8 @@ could do:
 However, someone could argue that this process is pretty manual and laborious
 to maintain specially when the developer changes the **abstract** dependencies.
 
-PyScaffold can alleviate this pain a little bit with the
-:obj:`~pyscaffold.extensions.venv` extension:
+Snek can alleviate this pain a little bit with the
+:obj:`~snek.extensions.venv` extension:
 
 .. code-block:: bash
 
@@ -134,10 +134,10 @@ dependency graph, so the developer can have environment reproducibility when
 trying to use another machine or discuss bugs with colleagues.
 
 In the following sections, we describe how to use a few popular command line
-tools, supported by PyScaffold, to tackle these issues.
+tools, supported by Snek, to tackle these issues.
 
 .. tip::
-   When called with the ``--venv`` option, PyScaffold will try first to use
+   When called with the ``--venv`` option, Snek will try first to use
    |virtualenv|_ (there are some advantages on using it, such as being faster),
    and if it is not installed, will fallback to Python stdlib's :mod:`venv`.
    Please notice however that even :mod:`venv` might not be available by default
@@ -158,7 +158,7 @@ Pipenv supports two different sets of dependencies: the default one, and the
 `dev` set. The default set is meant to store runtime dependencies while the dev
 set is meant to store dependencies that are used only during development.
 
-This separation can be directly mapped to PyScaffold strategy: basically the
+This separation can be directly mapped to Snek strategy: basically the
 default set should mimic the ``install_requires`` option in ``setup.cfg``,
 while the dev set should contain things like ``tox``, ``sphinx``,
 ``pre-commit``, ``ptpython`` or any other tool the developer uses while
@@ -174,11 +174,11 @@ the dev set. After using Pipenv, you should add both ``Pipfile`` and
 a single ``Pipfile.lock`` shared by all the developers in the same project can
 save you some hours of sleep).
 
-In a nutshell, PyScaffold+Pipenv workflow looks like:
+In a nutshell, Snek+Pipenv workflow looks like:
 
 .. code-block:: bash
 
-    $ pip install pyscaffold pipenv
+    $ pip install snek pipenv
     $ putup myproj
     $ cd myproj
     # ... edit setup.cfg to add dependencies ...
@@ -196,7 +196,7 @@ add them to your virtual environment.
 
     *Experimental Feature* - `Pipenv`_ is still a young project that is moving
     very fast. Changes in the way developers can use it are expected in the
-    near future, and therefore PyScaffold support might change as well.
+    near future, and therefore Snek support might change as well.
 
 ..
     TODO: As reported in issue https://github.com/jazzband/pip-tools/issues/204,
@@ -247,10 +247,10 @@ and the minimal dependencies of your packages are already listed in
    The existence of a ``requirements.txt`` file in the root of your repository
    does not imply all the packages listed there will be considered direct
    dependencies of your package. This was valid for older versions of
-   PyScaffold (≤ 3), but is no longer the case. If the file exists, it is
-   completely ignored by PyScaffold and setuptools.
+   Snek (≤ 3), but is no longer the case. If the file exists, it is
+   completely ignored by Snek and setuptools.
 
-A simple a PyScaffold + |pip-tools|_ workflow looks like:
+A simple a Snek + |pip-tools|_ workflow looks like:
 
 .. code-block:: bash
 
@@ -280,7 +280,7 @@ If you want to add a dependency to the dev environment only, you can also:
 .. warning::
 
     *Experimental Feature* - the methods described here for integrating |pip-tools|_
-    and PyScaffold in a single workflow are tested to a certain degree and not
+    and Snek in a single workflow are tested to a certain degree and not
     considered stable.
     The usage of relative paths in the compiled ``requirements.txt`` file is a
     feature that have being several years in the making and still is under
@@ -292,9 +292,6 @@ If you want to add a dependency to the dev environment only, you can also:
 
     The issue https://github.com/jazzband/pip-tools/issues/204 is worth
     following.
-
-    If you find that the procedure here no longer works, please open an issue
-    on https://github.com/pyscaffold/pyscaffold/issues.
 
 
 Integration with conda
@@ -321,7 +318,7 @@ system libraries besides the current ones is not possible at all.
    any compiled libraries, |virtualenv|_/|venv|_ might provide a faster dev
    experience.
 
-To use conda_ with a project setup generated by PyScaffold just:
+To use conda_ with a project setup generated by Snek just:
 
 1. Create a file ``environment.yml``, e.g. like this `example for data science projects`_.
    Note that ``name: my_conda_env`` defines the name of the environment. Also note that besides
@@ -356,7 +353,7 @@ To use conda_ with a project setup generated by PyScaffold just:
      conda activate my_conda_env
 
 You can read more about conda_ in the `excellent guide written by WhiteBox`_.
-Also checkout the `PyScaffold's dsproject extension`_ that already comes with a proper ``environment.yml``.
+Also checkout the `Snek's dsproject extension`_ that already comes with a proper ``environment.yml``.
 
 Creating a conda package
 ------------------------
@@ -364,7 +361,7 @@ Creating a conda package
 The process of creating conda_ packages consists basically in creating some extra
 files that describe general recipe to build your project in different operating systems.
 These recipe files can in theory coexist within the same repository as generated
-by PyScaffold.
+by Snek.
 
 While this approach is completely fine and works well, a package
 uploaded by a regular user to Anaconda_ will not be available if someone simply try to
@@ -383,7 +380,7 @@ in large communities that share a single and open repository in Anaconda_, that
 rely on specific procedures and heavy continuous integration for publishing
 cohesive packages. These procedures, however, might involve creating a second
 repository (separated from the main code base) to just host the recipe files.
-For that reason, PyScaffold does not currently generate conda_ recipe files
+For that reason, Snek does not currently generate conda_ recipe files
 when creating new projects.
 
 Instead, if you are an open-source developer and are interested in distributing
@@ -392,10 +389,10 @@ packages via conda_, our recommendation is to try `publishing your package on co
 conda-forge_ is one of the largest channels in Anaconda_ and works as the
 central hub for the Python developers in the conda_ ecosystem.
 
-Once you have your package published to PyPI_ using the project generated by PyScaffold,
+Once you have your package published to PyPI_ using the project generated by Snek,
 you can create a *conda-forge feedstock* [#conda1]_ using a special tool called grayskull_ and
 following the documented instructions_.
-Please make sure to check PyScaffold community tips in :discussion:`422`. Also, there are useful tips in :issue:`633`.
+Please make sure to check Snek community tips in :discussion:`422`. Also, there are useful tips in :issue:`633`.
 
 If you still need to use a personal custom channel in Anaconda_, please
 checkout `conda-build tutorials`_ for further information.
@@ -440,8 +437,6 @@ checkout `conda-build tutorials`_ for further information.
 .. _instructions: https://conda-forge.org/docs/maintainer/adding_pkgs.html#step-by-step-instructions
 .. _conda-build tutorials: https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/index.html
 .. _conda environment: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment
-.. _PyScaffold's dsproject extension: https://pyscaffold.org/projects/dsproject/en/stable/
 .. _mamba: https://github.com/mamba-org/mamba
 .. _pyenv: https://github.com/pyenv/pyenv
-.. _example for data science projects: https://github.com/pyscaffold/dsproject-demo/blob/master/environment.yml
 .. _excellent guide written by WhiteBox: https://whiteboxml.com/blog/the-definitive-guide-to-python-virtual-environments-with-conda

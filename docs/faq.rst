@@ -11,8 +11,8 @@ look at our discussions_ and consider submitting a new one for the `Q&A`_.
 Pyscaffold Usage
 ----------------
 
-Does my project depend on PyScaffold when I use it to set my project up?
-   Starting from version 4, your package is completely independent from PyScaffold, we just kick-start your project and
+Does my project depend on Snek when I use it to set my project up?
+   Starting from version 4, your package is completely independent from Snek, we just kick-start your project and
    take care of the boilerplate.
    However, we do include some build-time dependencies that make your life easier, such as :pypi:`setuptools-scm`.
    But don't worry, if you distribute your project in the recommended `wheel format`_ those dependencies will not affect
@@ -21,22 +21,22 @@ Does my project depend on PyScaffold when I use it to set my project up?
    That means if someone clones your repository and tries to build it, the dependencies in ``pyproject.toml``
    will be automatically pulled. This mechanism is described by :pep:`517`/:pep:`518` and definitely beyond the scope of this answer.
 
-Can I use PyScaffold ≥ 3 to develop a Python package that is Python 2 & 3 compatible?
+Can I use Snek ≥ 3 to develop a Python package that is Python 2 & 3 compatible?
    Python 2 reached *end-of-life* in 2020, which means that no security updates will be available, and therefore any
-   software running on Python 2 is potentially vulnerable. PyScaffold strongly recommends all packages to be ported to
+   software running on Python 2 is potentially vulnerable. Snek strongly recommends all packages to be ported to
    the latest supported version of Python.
 
    That being said, Python 3 is actually only needed for the ``putup`` command and whenever you use ``setup.py``. This means that with
-   PyScaffold ≥ 3 you have to use Python 3 during the development of your package for practical reasons. If you develop
+   Snek ≥ 3 you have to use Python 3 during the development of your package for practical reasons. If you develop
    the package using six_ you can still make it Python 2 & 3 compatible by creating a *universal* ``bdist_wheel`` package.
    This package can then be installed and run from Python 2 and 3. Just have in mind that no support for Python 2 will be provided.
 
-.. _remove-pyscaffold:
+.. _remove-snek:
 
-How can I get rid of PyScaffold when my project was set up using it?
+How can I get rid of Snek when my project was set up using it?
    First of all, I would really love to understand **why** you want to remove it and **what** you don't like about it.
    You can create an issue for that or just text me on `Twitter`_.
-   But the good news is that your project is completely independent of PyScaffold, even if you uninstall it, everything
+   But the good news is that your project is completely independent of Snek, even if you uninstall it, everything
    will be fine.
 
    If you still want to remove :pypi:`setuptools-scm` (a build-time dependency we add by default), it's actually really simple:
@@ -58,50 +58,50 @@ How can I get rid of PyScaffold when my project was set up using it?
    * some sane defaults for pytest.
 
    For further cleanups, feel free to remove the dependencies from the ``requires`` key in ``pyproject.toml`` as well as
-   the complete ``[pyscaffold]`` section in ``setup.cfg``.
+   the complete ``[snek]`` section in ``setup.cfg``.
 
-Why would I use PyScaffold instead of Cookiecutter?
-   PyScaffold is focused on a good out-of-the-box experience for developing distributable Python packages (exclusively).
-   The idea is to standardize the structure of Python packages. Thus, PyScaffold sticks to
+Why would I use Snek instead of Cookiecutter?
+   Snek is focused on a good out-of-the-box experience for developing distributable Python packages (exclusively).
+   The idea is to standardize the structure of Python packages. Thus, Snek sticks to
 
        "There should be one-- and preferably only one --obvious way to do it."
 
-   from the :pep:`Zen of Python <20>`. The long-term goal is that PyScaffold becomes for Python what `Cargo`_ is for `Rust`_.
-   Still, with the help of PyScaffold's :ref:`extension system <extensions>` customizing a project scaffold is possible.
+   from the :pep:`Zen of Python <20>`. The long-term goal is that Snek becomes for Python what `Cargo`_ is for `Rust`_.
+   Still, with the help of Snek's :ref:`extension system <extensions>` customizing a project scaffold is possible.
 
    Cookiecutter on the other hand is a really flexible templating tool that allows you to define own templates according
-   to your needs. Although some standard templates are provided that will give you quite similar results as PyScaffold,
+   to your needs. Although some standard templates are provided that will give you quite similar results as Snek,
    the overall goal of the project is quite different.
 
-   Still, if you so desire, PyScaffold allows users to augment PyScaffold projects with certain types of cookiecutter
-   templates, through its `pyscaffoldext-cookiecutter`_ extension.
+   Still, if you so desire, Snek allows users to augment Snek projects with certain types of cookiecutter
+   templates, through its snekext-cookiecutter extension.
 
 .. _python-api:
 
-How can I embed PyScaffold into another application?
-    PyScaffold is expected to be used from terminal, via ``putup`` command line
+How can I embed Snek into another application?
+    Snek is expected to be used from terminal, via ``putup`` command line
     application. It is, however, possible to write an external script or program
-    that embeds PyScaffold and use it to perform some custom actions.
+    that embeds Snek and use it to perform some custom actions.
 
-    The public Python API for embedding PyScaffold is composed by the main function
-    :obj:`pyscaffold.api.create_project` in addition to :obj:`pyscaffold.api.NO_CONFIG`,
-    :obj:`pyscaffold.log.DEFAULT_LOGGER`, :obj:`pyscaffold.log.logger` (partially,
+    The public Python API for embedding Snek is composed by the main function
+    :obj:`snek.api.create_project` in addition to :obj:`snek.api.NO_CONFIG`,
+    :obj:`snek.log.DEFAULT_LOGGER`, :obj:`snek.log.logger` (partially,
     see details below), and the constructors for the extension classes belonging
-    to the :mod:`pyscaffold.extenstions` module (the other methods and functions
+    to the :mod:`snek.extenstions` module (the other methods and functions
     are not considered part of the API). This API, as explicitly listed, follows
     `Semantic Versioning`_ and will not change in a backwards incompatible way
     between releases. The remaining methods and functions are not guaranteed to be stable.
 
-    The following example illustrates a typical embedded usage of PyScaffold:
+    The following example illustrates a typical embedded usage of Snek:
 
     .. code-block:: python
 
         import logging
 
-        from pyscaffold.api import create_project
-        from pyscaffold.extensions.cirrus import Cirrus
-        from pyscaffold.extensions.namespace import Namespace
-        from pyscaffold.log import DEFAULT_LOGGER as LOGGER_NAME
+        from snek.api import create_project
+        from snek.extensions.cirrus import Cirrus
+        from snek.extensions.namespace import Namespace
+        from snek.log import DEFAULT_LOGGER as LOGGER_NAME
 
         logging.getLogger(LOGGER_NAME).setLevel(logging.INFO)
 
@@ -117,21 +117,21 @@ How can I embed PyScaffold into another application?
     is activated by default. The ``extensions`` option should be manually
     populated when convenient.
 
-    PyScaffold uses the logging infrastructure from Python standard library, and
+    Snek uses the logging infrastructure from Python standard library, and
     emits notifications during its execution. Therefore, it is possible to control
     which messages are logged by properly setting the log level (internally, most
     of the messages are produced under the ``INFO`` level).  By default, a
     :class:`~logging.StreamHandler` is attached to the logger, however it is
     possible to replace it with a custom handler using
     :obj:`logging.Logger.removeHandler` and :obj:`logging.Logger.addHandler`. The
-    logger object is available under the :obj:`~pyscaffold.log.logger` variable of
-    the :mod:`pyscaffold.log` module. The default handler is available under the
-    :obj:`~pyscaffold.log.ReportLogger.handler` property of the
-    :obj:`~pyscaffold.log.logger` object.
+    logger object is available under the :obj:`~snek.log.logger` variable of
+    the :mod:`snek.log` module. The default handler is available under the
+    :obj:`~snek.log.ReportLogger.handler` property of the
+    :obj:`~snek.log.logger` object.
 
 
-How can I use PyScaffold if my project is nested within a larger repository, e.g. in a monorepo?
-    If you use PyScaffold to create a Python project within another larger repository, you will see
+How can I use Snek if my project is nested within a larger repository, e.g. in a monorepo?
+    If you use Snek to create a Python project within another larger repository, you will see
     the following error when building your package::
 
         LookupError: setuptools-scm was unable to detect version for '/path/to/your/project'::
@@ -156,17 +156,17 @@ How can I use PyScaffold if my project is nested within a larger repository, e.g
                                "relative_to": __file__,  # ... AND THAT!
                                "version_scheme": "no-guess-dev"})
 
-    In future versions of PyScaffold this will be much simpler as ``pyproject.toml`` will completely replace ``setup.py``.
+    In future versions of Snek this will be much simpler as ``pyproject.toml`` will completely replace ``setup.py``.
 
 
 What is the license of the generated project scaffold? Is there anything I need to consider?
-    The source code of PyScaffold itself is MIT-licensed with the exception of the `*.template` files under the ``pyscaffold.templates`` subpackage,
+    The source code of Snek itself is MIT-licensed with the exception of the `*.template` files under the ``snek.templates`` subpackage,
     which are licensed under the BSD 0-Clause license (0BSD). Thus, also the generated boilerplate code for your project
     is 0BSD-licensed and consequently you have no obligations at all and can do whatever you want except of suing us ;-)
 
 
 Why my file is not being included in the sdist/wheel distribution?
-    By default projects generated with PyScaffold rely on :pypi:`setuptools-scm` to populate the generated sdist or wheel, which in
+    By default projects generated with Snek rely on :pypi:`setuptools-scm` to populate the generated sdist or wheel, which in
     turn uses ``git`` to list all the *non-transient project files*.
     Therefore, if you create non-Python files, you need to **make sure they are being tracked by git** before building your project.
 
@@ -182,9 +182,9 @@ Why my file is not being included in the sdist/wheel distribution?
 
 .. _git-default-branch:
 
-How can I change Git's default branch when creating a new project setup with PyScaffold?
+How can I change Git's default branch when creating a new project setup with Snek?
     The default branch in Git used to be ``master`` (and still is at least until version 2.32) but nowadays ``main`` is a
-    preferred name. When you use PyScaffold's ``putup`` to set up your project and want to explicitly set the default branch
+    preferred name. When you use Snek's ``putup`` to set up your project and want to explicitly set the default branch
     name, just configure this using ``git config``, e.g.::
 
         $ git config --global init.defaultBranch main
@@ -194,7 +194,7 @@ How can I change Git's default branch when creating a new project setup with PyS
 File Organisation and Directory Structure
 -----------------------------------------
 
-Why does PyScaffold ≥ 3 have a ``src`` folder which holds the actual Python package?
+Why does Snek ≥ 3 have a ``src`` folder which holds the actual Python package?
    This avoids quite many problems compared to the case when the actual Python package resides in the same folder as
    your configuration and test files.
    A nice `blog post by Ionel`_ gives a thorough explanation why this is so. In a nutshell, the most severe
@@ -206,10 +206,10 @@ Why does PyScaffold ≥ 3 have a ``src`` folder which holds the actual Python pa
    Moreover, having a dedicated ``src`` directory to store the package files, makes it easy to comply with recent standards
    in the Python community (for example :pep:`420`).
 
-   Please notice that PyScaffold assumes all the files inside ``src`` are meant to be part of the package.
+   Please notice that Snek assumes all the files inside ``src`` are meant to be part of the package.
 
 Can I have other files inside the ``src`` folder that are not meant for distribution?
-   PyScaffold considers the ``src`` directory to be exclusively dedicated to
+   Snek considers the ``src`` directory to be exclusively dedicated to
    store files meant to be distributed, and relies on this assumption to
    generate configuration for the several aspects of your project. Therefore
    it is not recommended to include any file not meant to distribution inside
@@ -219,7 +219,7 @@ Can I have other files inside the ``src`` folder that are not meant for distribu
 Where should I put extra files not meant for distribution?
    You can use the ``docs`` folder (if applicable) or create another dedicated
    folder in the root of your repository (e.g. ``examples``). The additional
-   project structure created by the `pyscaffoldext-dsproject`_ is a good
+   project structure created by the `snekext-dsproject`_ is a good
    example on how to use extra folders to achieve good project organisation.
 
 
@@ -229,7 +229,7 @@ Namespaces
 .. _remove_implicit_namespaces:
 
 How can I get rid of the implicit namespaces (:pep:`420`)?
-    PyScaffold uses ``setup.cfg`` to ensure `setuptools`_ will follow :pep:`420`.
+    Snek uses ``setup.cfg`` to ensure `setuptools`_ will follow :pep:`420`.
     If this configuration particularly messes up with your package, or
     you simply want to follow the old behavior, please replace
     ``packages = find_namespace:`` with ``packages = find:`` in the ``[options]``
@@ -245,14 +245,14 @@ How can I get rid of the implicit namespaces (:pep:`420`)?
     them a sample of the ``__init__.py`` file for the umbrella folder working as
     namespace.
 
-How can I fix problems with my namespace package after an upgrade to PyScaffold 4?
-    That is likely to be happening because PyScaffold 4 removed support for
+How can I fix problems with my namespace package after an upgrade to Snek 4?
+    That is likely to be happening because Snek 4 removed support for
     `pkg_resources`_ namespaces in favour of :pep:`420`. Unfortunately these two
     methodologies for creating namespaces are not compatible, as documented in
     the `packaging namespace packages official guide`_. To fix this problem you
     (or other maintainers) will need to either **(a)** update all the existing
     "subpackages" in the same namespace to be implicit (:pep:`420`-style), or
-    **(b)** get rid of the implicit namespace configuration PyScaffold
+    **(b)** get rid of the implicit namespace configuration Snek
     automatically sets up during project creation/update. Please check the
     answers for these other questions about :ref:`removing <remove_implicit_namespaces>`
     or :ref:`adding <add_implicit_namespaces>` implicit namespaces and the
@@ -262,9 +262,9 @@ How can I fix problems with my namespace package after an upgrade to PyScaffold 
 
 How can I convert an existing package to use implicit namespaces (:pep:`420`])?
     The easiest answer for that question is to **(a)** convert the existing
-    package to a PyScaffold-enabled project (*if it isn't yet*; please check
+    package to a Snek-enabled project (*if it isn't yet*; please check
     :ref:`our guides <migration>` for instructions) and **(b)** :ref:`update
-    <updating>` your existing project to the latest version of PyScaffold
+    <updating>` your existing project to the latest version of Snek
     passing the correct ``--namespace`` option.
 
     The slightly more difficult answer for that question is to **(a)** make sure
@@ -300,10 +300,10 @@ pyproject.toml
 --------------
 
 Can I modify ``requires`` despite the warning in ``pyproject.toml`` to avoid doing that?
-    You can definitely modify ``pyproject.toml``, but it is good to understand how PyScaffold uses it.
+    You can definitely modify ``pyproject.toml``, but it is good to understand how Snek uses it.
     If you are just adding a new build dependency (e.g. `Cython`_), there is nothing to worry.
-    However, if you are trying to remove or change the version of a dependency PyScaffold included there,
-    PyScaffold will overwrite that change if you ever run ``putup --update`` in the same project
+    However, if you are trying to remove or change the version of a dependency Snek included there,
+    Snek will overwrite that change if you ever run ``putup --update`` in the same project
     (in those cases ``git diff`` is your friend, and you should be able to manually reconcile the dependencies).
 
 What should I do if I am not using ``pyproject.toml`` or if it is causing me problems?
@@ -316,7 +316,7 @@ What should I do if I am not using ``pyproject.toml`` or if it is causing me pro
     .. note::
        For the time being you can use the **transitional** ``--no-pyproject``
        option, when running ``putup``, but have in mind that this option will
-       be removed in future versions of PyScaffold.
+       be removed in future versions of Snek.
 
     Please check our :ref:`updating guide <updating>` for :ref:`extra steps <no-pyproject-steps>`
     you might need to execute manually.
@@ -376,7 +376,7 @@ How can I build a distribution if I have only the source code without a proper g
     Also remove ``use_scm_version={"version_scheme": "no-guess-dev"}`` from ``setup.py``.
 
 How can I configure and debug the exact version exported by my package?
-    PyScaffold will include a default configuration for your project
+    Snek will include a default configuration for your project
     that uses the name of the latest git tag and the status of your working
     tree to create a suitable version string.
 
@@ -440,13 +440,11 @@ My ``sdist`` is too large for PyPI, how can I skip it?
 
 Should ``sdist`` include documentation and tests?
     Yes, whenever possible, see the `discussion in the Python Discourse`_ for more information.
-    PyScaffold uses ``setuptools-scm`` so they are included by default.
+    Snek uses ``setuptools-scm`` so they are included by default.
 
 
 .. _blog post by Ionel: https://blog.ionelmc.ro/2014/05/25/python-packaging/#the-structure
 .. _src layout: https://blog.ionelmc.ro/2014/05/25/python-packaging/#the-structure
-.. _discussions: https://github.com/pyscaffold/pyscaffold/discussions
-.. _Q&A: https://github.com/pyscaffold/pyscaffold/discussions/categories/q-a
 .. _wheel format: https://pythonwheels.com
 .. _Cargo: https://doc.rust-lang.org/stable/cargo/
 .. _Rust: https://www.rust-lang.org
@@ -461,8 +459,6 @@ Should ``sdist`` include documentation and tests?
 .. _packaging namespace packages official guide: https://packaging.python.org/guides/packaging-namespace-packages
 .. _pkg_resources: https://setuptools.pypa.io/en/stable/pkg_resources.html
 .. _Sphinx: https://www.sphinx-doc.org/en/master/
-.. _pyscaffoldext-cookiecutter: https://github.com/pyscaffold/pyscaffoldext-cookiecutter
-.. _pyscaffoldext-dsproject: https://github.com/pyscaffold/pyscaffoldext-dsproject
 .. _Semantic Versioning: https://semver.org/
 .. _dependency hell: https://en.wikipedia.org/wiki/Dependency_hell
 .. _devpi: https://www.devpi.net
