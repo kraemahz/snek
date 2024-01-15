@@ -5,6 +5,7 @@ Command-Line-Interface of snek
 import argparse
 import logging
 import sys
+from pathlib import Path
 from typing import List, Optional
 
 from packaging.version import Version
@@ -50,7 +51,7 @@ def add_log_related_args(parser: argparse.ArgumentParser):
     )
 
 
-def add_default_args(parser: argparse.ArgumentParser):
+def add_init_args(parser: argparse.ArgumentParser):
     """Add the default options and arguments to the CLI parser."""
 
     # Here we can use api.DEFAULT_OPTIONS to provide the help text, but we should avoid
@@ -58,11 +59,7 @@ def add_default_args(parser: argparse.ArgumentParser):
     # `api.bootstrap_options`.
     # Setting defaults with `api.bootstrap_options` guarantees we do that in a
     # centralised manner, that works for both CLI and direct Python API invocation.
-    parser.add_argument(
-        dest="project_path",
-        help="path where to generate/update project",
-        metavar="PROJECT_PATH",
-    )
+
     parser.add_argument(
         "-n",
         "--name",
@@ -160,11 +157,14 @@ def parse_args(args: List[str]) -> ScaffoldOpts:
         dict: command line parameters
     """
     # create the argument parser
-    msg = "snek is a tool for easily putting up the scaffold of a Python project."
+    msg = "Snek is a tool for templating a Python project."
     parser = argparse.ArgumentParser(description=msg)
+    parser.set_defaults(extensions=[], config_files=[])
+    parsers = parser.add_subparsers(help='Sub commands')
+    init_parser = parsers.add_parser('init', help="Initialize a new repository in the current directory")
+    init_parser.set_defaults(func=init)
+    add_init_args(init_parser)
 
-    parser.set_defaults(extensions=[], config_files=[], command=run_scaffold)
-    add_default_args(parser)
     add_extension_args(parser)
 
     # Parse options and transform argparse Namespace object into common dict
@@ -216,6 +216,11 @@ def _default_log_level(opts: ScaffoldOpts):
     return logging.INFO if opts.get("pretend") else logging.WARNING
 
 
+def init(opts: ScaffoldOpts):
+    opts["project_name"] = Path('.').absolute().name
+    run_scaffold(opts)
+
+
 def run_scaffold(opts: ScaffoldOpts):
     """Actually scaffold the project, calling the python API
 
@@ -253,7 +258,7 @@ def main(args: List[str]):
         args: command line arguments
     """
     opts = parse_args(args)
-    opts["command"](opts)
+    opts["func"](opts)
 
 
 @shell_command_error2exit_decorator

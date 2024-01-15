@@ -277,6 +277,11 @@ def verify_options_consistency(struct: Structure, opts: ScaffoldOpts) -> ActionP
     return struct, opts
 
 
+def empty(path: Path):
+    """Is the path empty?"""
+    return not any(path.glob('*'))
+
+
 def verify_project_dir(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
     """Check if snek can materialize the project dir structure.
 
@@ -290,7 +295,7 @@ def verify_project_dir(struct: Structure, opts: ScaffoldOpts) -> ActionParams:
     project_path = opts["project_path"].resolve(strict=False)
     parent_path = project_path.parent
     logger.report("verify", f"does project path {project_path} exist...")
-    if project_path.exists():
+    if project_path.exists() and not empty(project_path):
         if not opts["update"] and not opts["force"]:
             raise DirectoryAlreadyExists(
                 f"Directory {project_path} already exists! Use the `update` option to "

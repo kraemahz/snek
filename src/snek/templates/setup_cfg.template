@@ -50,6 +50,8 @@ testing =
     pytest-cov
 
 [options.entry_points]
+console_scripts =
+    ${name} = ${name}.cli:run
 
 [tool:pytest]
 # CAUTION: --cov flags may prohibit setting breakpoints while debugging.
