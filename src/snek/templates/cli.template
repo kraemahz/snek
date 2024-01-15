@@ -1,29 +1,11 @@
+"""This is a cli file that can serve as a starting point for a Python console
+script.
 """
-This is a cli file that can serve as a starting point for a Python
-console script. To run this script uncomment the following lines in the
-``[options.entry_points]`` section in ``setup.cfg``::
-
-    console_scripts =
-         ${package} = ${package}.cli:run
-
-Then run ``pip install .`` (or ``pip install -e .`` for editable mode)
-which will install the command ``fibonacci`` inside your current environment.
-
-Besides console scripts, the header (i.e. until ``_logger``...) of this file can
-also be used as template for Python modules.
-
-Note:
-    This file can be renamed depending on your needs or safely removed if not needed.
-
-References:
-    - https://setuptools.pypa.io/en/latest/userguide/entry_point.html
-    - https://pip.pypa.io/en/stable/reference/pip_install
-"""
-
 import argparse
 import logging
 import sys
 
+from typing import List
 from ${qual_pkg} import __version__
 
 __author__ = "${author}"
@@ -33,29 +15,14 @@ __license__ = "${license}"
 _logger = logging.getLogger(__name__)
 
 
-# ---- Python API ----
-# The functions defined in this section can be imported by users in their
-# Python scripts/interactive interpreter, e.g. via
-# `from ${qual_pkg}.cli import fib`,
-# when using this Python module as a library.
-
-
 # ---- CLI ----
 # The functions defined in this section are wrappers around the main Python
 # API allowing them to be called directly from the terminal as a CLI
 # executable/script.
 
 
-def parse_args(args):
-    """Parse command line parameters
-
-    Args:
-      args (List[str]): command line parameters as list of strings
-          (for example  ``["--help"]``).
-
-    Returns:
-      :obj:`argparse.Namespace`: command line parameters namespace
-    """
+def parse_args(args: List[str]) -> argparse.Namespace:
+    """Parse command line parameters."""
     parser = argparse.ArgumentParser(description="Just a Fibonacci demonstration")
     parser.add_argument(
         "--version",
@@ -72,44 +39,32 @@ def parse_args(args):
         const=logging.INFO,
     )
     parser.add_argument(
-        "-vv",
-        "--very-verbose",
+        "-d",
+        "--debug",
         dest="loglevel",
-        help="set loglevel to DEBUG",
+        help=argparse.SUPPRESS,
         action="store_const",
         const=logging.DEBUG,
     )
     return parser.parse_args(args)
 
 
-def setup_logging(loglevel):
-    """Setup basic logging
-
-    Args:
-      loglevel (int): minimum loglevel for emitting messages
-    """
+def setup_logging(loglevel: int):
+    """Setup basic logging"""
     logformat = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
     logging.basicConfig(
         level=loglevel, stream=sys.stdout, format=logformat, datefmt="%Y-%m-%d %H:%M:%S"
     )
 
 
-def main(args):
-    """Main function
-
-    Args:
-      args (List[str]): command line parameters as list of strings
-          (for example  ``["--verbose", "42"]``).
-    """
+def main(args: List[str]):
+    """Main function"""
     args = parse_args(args)
     setup_logging(args.loglevel)
 
 
 def run():
-    """Calls :func:`main` passing the CLI arguments extracted from :obj:`sys.argv`
-
-    This function can be used as entry point to create console scripts with setuptools.
-    """
+    """Command line entrypoint."""
     main(sys.argv[1:])
 
 
