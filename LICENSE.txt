@@ -33,7 +33,7 @@ projects, are licensed under BSD 0-Clause license; see below for details.
 
 The MIT License (MIT)
 
-Copyright (c) 2018-present, PyScaffold contributors
+Copyright (c) 2018-2024, PyScaffold contributors
 Copyright (c) 2014-2018 Blue Yonder GmbH
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -58,7 +58,7 @@ SOFTWARE.
 
 BSD 0-Clause License
 
-Copyright (c) 2018-present, PyScaffold contributors
+Copyright (c) 2018-2024, PyScaffold contributors
 Copyright (c) 2014-2018 Blue Yonder GmbH
 
 Permission to use, copy, modify, and/or distribute this software for
